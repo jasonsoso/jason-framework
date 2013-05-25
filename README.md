@@ -9,7 +9,7 @@ JasonFramewok is a Spring Framework based JavaEE application reference architect
 `mvn deploy` 	 //Publish to nexus ,not the Required-election  
 
 
-## Use (Dependency Information) ##  
+## Use (Dependency Information) ##
 `
 <dependency>  
   <groupId>com.jason</groupId>  
