@@ -14,7 +14,11 @@ import org.apache.commons.lang.StringUtils;
 import com.jason.framework.util.ExceptionUtils;
 import com.jason.framework.util.IOUtils;
 
-
+/**
+ * 实体类 辅助类
+ * @author Jason
+ * @date 2013-5-25 下午08:28:41
+ */
 public final class EntityUtils {
 
 	/**

@@ -32,7 +32,6 @@ public abstract class IdDomainObject implements DomainObject<IdDomainObject>, Se
 
 	@Override
 	public boolean sameIdentityAs(IdDomainObject other) {
-
 		if (null == other) {
 			return false;
 		}

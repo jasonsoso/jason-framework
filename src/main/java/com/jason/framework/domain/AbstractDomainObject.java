@@ -26,18 +26,15 @@ public abstract class AbstractDomainObject implements DomainObject<AbstractDomai
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
 
 	@Override
 	public boolean sameIdentityAs(AbstractDomainObject other) {
-
 		if (null == other) {
 			return false;
 		}
-
 		return new EqualsBuilder().append(this.getId(), other.getId()).isEquals();
 	}
 
