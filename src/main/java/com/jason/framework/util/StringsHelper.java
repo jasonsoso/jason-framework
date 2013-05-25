@@ -1,5 +1,9 @@
 package com.jason.framework.util;
 
+/**
+ * 字符串 辅助类
+ * @author Jason
+ */
 public final class StringsHelper {
 	
 	public static String suffix(String filename) {

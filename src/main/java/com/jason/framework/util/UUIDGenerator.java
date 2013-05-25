@@ -2,6 +2,11 @@ package com.jason.framework.util;
 
 import java.util.UUID;
 
+/**
+ * uuid
+ * @author Jason
+ * @date 2013-5-25 下午10:29:20
+ */
 public final class UUIDGenerator {
 	
 	public static String getUUID() {

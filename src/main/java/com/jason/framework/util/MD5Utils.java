@@ -8,6 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+/**
+ * MD5加密
+ * @author Jason
+ */
 public final class MD5Utils {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MD5Utils.class);

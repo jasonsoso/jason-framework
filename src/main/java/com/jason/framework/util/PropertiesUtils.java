@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 读取 配置文件  辅助类
  * @author Jason
  * @date 2013-2-11 下午07:45:45
  */

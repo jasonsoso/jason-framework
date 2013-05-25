@@ -23,7 +23,7 @@ public final class PhotoHelper {
 
 
 	/**
-	 * 
+	 * 创建缩略图
 	 * @param in
 	 * @param thumbnail
 	 * @param width
@@ -73,7 +73,7 @@ public final class PhotoHelper {
 	}
 	
 	/**
-	 * 
+	 * 打水印
 	 * @param dest
 	 * @param watermark
 	 */
@@ -103,6 +103,7 @@ public final class PhotoHelper {
 	}
 
 	/**
+	 * 打水印
 	 * @param dest
 	 * @param watermark
 	 */

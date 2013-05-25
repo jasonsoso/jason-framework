@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 命令行
+ * Window/Linux 执行命令行
  * @author Jason
  * @date 2013-2-7 下午11:59:25
  */
@@ -23,10 +23,10 @@ public class CommandLineHelper {
 		OS = System.getProperty("os.name").toLowerCase()
 			.startsWith("windows")?"windows":"linux";
 	}
-
 	public static String getOS() {
 		return OS;
 	}
+	
 	/**
 	 * @param cmd
 	 * @return

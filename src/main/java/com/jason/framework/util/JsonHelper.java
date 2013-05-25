@@ -5,6 +5,11 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 
+/**
+ * Json 格式转换类
+ * @author Jason
+ * @date 2013-5-25 下午10:14:35
+ */
 public final class JsonHelper {
 	private static ObjectMapper MAPPER = new ObjectMapper();
 

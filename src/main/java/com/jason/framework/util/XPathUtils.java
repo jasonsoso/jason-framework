@@ -17,6 +17,9 @@ import org.w3c.dom.NodeList;
 
 
 
+/**
+ * XPath 工具类
+ */
 public final class XPathUtils {
 
 	private static final XPathFactory XPATH_FACTORY = XPathFactory.newInstance();
