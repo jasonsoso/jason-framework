@@ -6,7 +6,7 @@
 	<artifactId>framework</artifactId>
 	<name>framework</name>
 	<packaging>jar</packaging>
-	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<properties>
 		<java-version>1.6</java-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -345,4 +345,12 @@
 		</plugins>
 		
 	</build>
+	
+	<distributionManagement>
+       <repository>
+        <id>thirdparty</id>
+        <name>thirdparty</name>
+        <url>http://localhost:8081/nexus/content/repositories/thirdparty</url>
+       </repository>
+      </distributionManagement>
 </project>
