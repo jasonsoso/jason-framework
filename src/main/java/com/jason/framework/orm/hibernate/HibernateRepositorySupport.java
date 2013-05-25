@@ -14,6 +14,12 @@ import org.springframework.util.Assert;
 import com.jason.framework.orm.Page;
 
 
+/**
+ * Hibernate Repository Support
+ * 
+ * @param <PK>
+ * @param <T>
+ */
 public class HibernateRepositorySupport<PK extends Serializable, T> extends HibernateRepository {
 
 	private Class<T> clazz;
@@ -50,7 +56,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	 * 
 	 * @param hql
 	 * @param values
-	 * @return
+	 * @return List<T>
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> query(String hql, Map<String, Object> values) {
@@ -61,7 +67,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	 * 
 	 * @param hql
 	 * @param values
-	 * @return
+	 * @return List<T>
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> query(String hql, Object... values) {
@@ -73,7 +79,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	 * @param page
 	 * @param queryString
 	 * @param values
-	 * @return
+	 * @return Page<T>
 	 */
 	@SuppressWarnings("unchecked")
 	public Page<T> queryPage(Page<T> page, String queryString, Map<String, Object> values) {
@@ -93,7 +99,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	 * @param page
 	 * @param hql
 	 * @param values
-	 * @return
+	 * @return Page<T>
 	 */
 	@SuppressWarnings("unchecked")
 	public Page<T> queryPage(Page<T> page, String hql, Object... values) {
@@ -109,7 +115,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	 * 
 	 * @param hql
 	 * @param values
-	 * @return
+	 * @return Object
 	 */
 	public Object queryUnique(String hql, Map<String, Object> values) {
 		return createQuery(hql, values).uniqueResult();
@@ -119,7 +125,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	 * 
 	 * @param hql
 	 * @param values
-	 * @return
+	 * @return Object
 	 */
 	public Object queryUnique(String hql, Object... values) {
 		return createQuery(hql, values).uniqueResult();
@@ -128,7 +134,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	/**
 	 * @param hql
 	 * @param values
-	 * @return
+	 * @return int
 	 */
 	public int createHqlQuery(String hql, Object... values){
 		return createQuery(hql, values).executeUpdate();
@@ -136,7 +142,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	/**
 	 * @param hql
 	 * @param values
-	 * @return
+	 * @return int
 	 */
 	public int createHqlQuery(String hql, Map<String, Object> values){
 		return createQuery(hql, values).executeUpdate();
@@ -147,7 +153,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	 * @param top
 	 * @param queryString
 	 * @param values
-	 * @return
+	 * @return List<T>
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> queryTop(int top, String queryString, Object... values) {
@@ -159,7 +165,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	 * @param top
 	 * @param queryString
 	 * @param values
-	 * @return
+	 * @return List<T>
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> queryTop(int top, String queryString, Map<String, Object> values) {
@@ -167,13 +173,12 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	}
 
 	/**
-	 * 
+	 * load
 	 * @param id
-	 * @return
+	 * @return T
 	 */
 	@SuppressWarnings("unchecked")
 	public T lazyGet(PK id) {
-
 		Assert.notNull(id, "id must not be null");
 		Assert.notNull(clazz, "clazz must not be null");
 
@@ -181,9 +186,9 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	}
 
 	/**
-	 * 
+	 * get
 	 * @param id
-	 * @return
+	 * @return T
 	 */
 	@SuppressWarnings("unchecked")
 	public T get(PK id) {
@@ -193,8 +198,11 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 		return (T) getSession().get(clazz, id);
 	}
 
+	/**
+	 * @param entity
+	 * @return Object
+	 */
 	public Object reload(Object entity) {
-
 		Assert.notNull(entity, "entity must not be null");
 		return getSession().merge(entity);
 	}
@@ -211,7 +219,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	 * @param <T>
 	 * @param query
 	 * @param page
-	 * @return
+	 * @return Query
 	 */
 	protected Query setPageParameter(Query query, Page<T> page) {
 

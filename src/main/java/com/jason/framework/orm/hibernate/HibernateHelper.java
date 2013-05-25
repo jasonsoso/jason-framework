@@ -9,6 +9,11 @@ import org.springframework.util.Assert;
 import com.jason.framework.util.ExceptionUtils;
 
 
+/**
+ * Hibernate 相关辅助类
+ * @author Jason
+ * @date 2013-5-25 下午09:18:47
+ */
 public final class HibernateHelper {
 
 	/**
