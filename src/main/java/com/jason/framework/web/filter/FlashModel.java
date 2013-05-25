@@ -15,15 +15,15 @@ public final class FlashModel {
 	public static final String MESSAGE_KEY = "message";
 
 	/**
-	 * @param key
-	 * @param value
+	 * @param redirectAttributes
+	 * @param message
 	 */
 	public static void putFlashAttribute(RedirectAttributes redirectAttributes,Message message) {
 		redirectAttributes.addFlashAttribute(MESSAGE_KEY, message);
 	}
 
 	/**
-	 * 
+	 * @param redirectAttributes
 	 * @param info
 	 */
 	public static void setInfoMessage(RedirectAttributes redirectAttributes,String info) {
@@ -31,7 +31,7 @@ public final class FlashModel {
 	}
 
 	/**
-	 * 
+	 * @param redirectAttributes
 	 * @param warning
 	 */
 	public static void setWarningMessage(RedirectAttributes redirectAttributes,String warning) {
@@ -39,7 +39,7 @@ public final class FlashModel {
 	}
 
 	/**
-	 * 
+	 * @param redirectAttributes
 	 * @param error
 	 */
 	public static void setErrorMessage(RedirectAttributes redirectAttributes,String error) {
@@ -47,7 +47,7 @@ public final class FlashModel {
 	}
 
 	/**
-	 * 
+	 * @param redirectAttributes
 	 * @param success
 	 */
 	public static void setSuccessMessage(RedirectAttributes redirectAttributes,String success) {
@@ -56,8 +56,8 @@ public final class FlashModel {
 
 
 	/**
-	 * Message message
 	 * @author Jason
+	 * @date 2013-5-25 下午09:54:25
 	 */
 	public static final class Message {
 

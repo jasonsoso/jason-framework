@@ -26,24 +26,26 @@ public abstract class ControllerSupport extends MultiActionController {
 
 	/**
 	 * Redirect Success
+	 * @param redirectAttributes
 	 * @param success
 	 */
 	public final void success(RedirectAttributes redirectAttributes,String success) {
 		FlashModel.setSuccessMessage(redirectAttributes,success);
 	}
 
-
 	/**
 	 * Redirect Error
+	 * @param redirectAttributes
 	 * @param error
 	 */
 	public final void error(RedirectAttributes redirectAttributes,String error) {
 		FlashModel.setErrorMessage(redirectAttributes,error);
 	}
+
 	/**
 	 * Forward Error
-	 * @param error
 	 * @param model
+	 * @param error
 	 */
 	public final void error(Model model,String error) {
 		model.addAttribute(FlashModel.MESSAGE_KEY,new Message(MessageType.error, error));
@@ -51,6 +53,7 @@ public abstract class ControllerSupport extends MultiActionController {
 
 	/**
 	 * Redirect Warning
+	 * @param redirectAttributes
 	 * @param warning
 	 */
 	public final void warning(RedirectAttributes redirectAttributes,String warning) {
@@ -59,11 +62,17 @@ public abstract class ControllerSupport extends MultiActionController {
 
 	/**
 	 * Redirect Info
+	 * @param redirectAttributes
 	 * @param info
 	 */
 	public final void info(RedirectAttributes redirectAttributes,String info) {
 		FlashModel.setErrorMessage(redirectAttributes,info);
 	}
+	
+	/**
+	 * @param response
+	 * @param message
+	 */
 	public static void writeJsonResult(HttpServletResponse response, Object message) {
 		try {
 			response.setContentType("text/html");
@@ -84,12 +93,8 @@ public abstract class ControllerSupport extends MultiActionController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), false));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.multiaction.MultiActionController#bind(javax.servlet.http.HttpServletRequest,
-	 * java.lang.Object)
+	/* (non-Javadoc)
+	 * @see org.springframework.web.servlet.mvc.multiaction.MultiActionController#bind(javax.servlet.http.HttpServletRequest, java.lang.Object)
 	 */
 	@Override
 	protected void bind(HttpServletRequest request, Object command) throws Exception {

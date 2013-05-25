@@ -9,22 +9,29 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
+ * Spring Request Holder
  * @author Jason
  * @date 2013-1-27 上午11:26:35
  */
 public final class SpringRequestHolder {
 	
 	/**
-    * get request
-    */
-   public static HttpServletRequest getRequest(RequestAttributes requestAttributes) {
+	 * get request
+	 * @param requestAttributes
+	 * @return
+	 */
+	public static HttpServletRequest getRequest(
+			RequestAttributes requestAttributes) {
 		return ((ServletRequestAttributes) requestAttributes).getRequest();
 	}
-   /**
-    * get session
-    */
-   public static HttpSession getSession(){
-   		HttpServletRequest request = getRequest(RequestContextHolder.currentRequestAttributes());
-   		return  request.getSession();
-   }
+
+	/**
+	 * get session
+	 * @return
+	 */
+	public static HttpSession getSession() {
+		HttpServletRequest request = getRequest(RequestContextHolder
+				.currentRequestAttributes());
+		return request.getSession();
+	}
 }
