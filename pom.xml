@@ -14,9 +14,9 @@
 		<org.aspectj-version>1.7.1</org.aspectj-version>
 		<org.slf4j-version>1.7.2</org.slf4j-version>
 	</properties>
-	
+
 	<dependencies>
-	
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -24,10 +24,10 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
@@ -58,32 +58,32 @@
 			<artifactId>spring-orm</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-	
+
 		<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${org.springframework-version}</version>
-            <scope>test</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <version>${org.aspectj-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>${org.aspectj-version}</version>
-        </dependency>
-    
-        <!--  freemarker -->
-        <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-            <version>2.3.19</version>
-         </dependency>
-         
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+
+		<!-- freemarker -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.19</version>
+		</dependency>
+
 
 		<!-- Logging -->
 		<dependency>
@@ -103,31 +103,6 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- <dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.mail</groupId>
-					<artifactId>mail</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.jms</groupId>
-					<artifactId>jms</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jdmk</groupId>
-					<artifactId>jmxtools</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jmx</groupId>
-					<artifactId>jmxri</artifactId>
-				</exclusion>
-			</exclusions>
-			<scope>runtime</scope> 
-		</dependency> -->
-
 
 		<!-- Servlet jsp jstl -->
 		<dependency>
@@ -148,7 +123,7 @@
 			<version>1.2</version>
 		</dependency>
 
-        <!-- commons -->
+		<!-- commons -->
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
@@ -174,7 +149,7 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.11</version>
-		</dependency> 
+		</dependency>
 
 		<dependency>
 			<groupId>cglib</groupId>
@@ -182,6 +157,7 @@
 			<version>2.2.2</version>
 		</dependency>
 
+        <!-- hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -207,6 +183,8 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.0.2.GA</version>
 		</dependency>
+		
+		<!-- DB -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -217,18 +195,6 @@
 			<artifactId>c3p0</artifactId>
 			<version>0.9.1.2</version>
 		</dependency>
-		
-        <dependency>
-            <groupId>nf</groupId>
-            <artifactId>captcha</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>12.0</version>
-        </dependency>
-        
 
 		<!-- Test -->
 		<dependency>
@@ -238,13 +204,13 @@
 			<scope>test</scope>
 		</dependency>
 
-		 
+
 	</dependencies>
 	<repositories>
-	   <repository>
-            <id>thirdparty</id>
-            <url>http://127.0.0.1:8081/nexus/content/repositories/thirdparty/</url>
-        </repository>
+		<repository>
+			<id>thirdparty</id>
+			<url>http://127.0.0.1:8081/nexus/content/repositories/thirdparty/</url>
+		</repository>
 		<!-- For testing against latest Spring snapshots -->
 		<repository>
 			<id>org.springframework.maven.snapshot</id>
@@ -320,15 +286,15 @@
 					<target>${java-version}</target>
 				</configuration>
 			</plugin>
-			
-			<!-- unit testing-->
+
+			<!-- unit testing -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.13</version>
 				<configuration>
-                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
-                </configuration>
+					<argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+				</configuration>
 				<dependencies>
 					<dependency>
 						<groupId>org.apache.maven.surefire</groupId>
@@ -339,18 +305,18 @@
 			</plugin>
 
 			<plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.5</version>
-            </plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+			</plugin>
 		</plugins>
-		
+
 	</build>
-	
+	<!-- mvn deploy -->
 	<distributionManagement>
-       <repository>
-        <id>thirdparty</id>
-        <name>thirdparty</name>
-        <url>http://localhost:8081/nexus/content/repositories/thirdparty</url>
-       </repository>
-      </distributionManagement>
+		<repository>
+			<id>thirdparty</id>
+			<name>thirdparty</name>
+			<url>http://localhost:8081/nexus/content/repositories/thirdparty</url>
+		</repository>
+	</distributionManagement>
 </project>
