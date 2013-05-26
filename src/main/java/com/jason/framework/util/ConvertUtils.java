@@ -9,7 +9,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 
-public class ConvertUtils {
+public final class ConvertUtils {
 
 	/**
 	 * 
@@ -20,10 +20,10 @@ public class ConvertUtils {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T, PK, PV> void convertPropertyToMap(Collection<T> beans,
+	public static <T, K, V> void convertPropertyToMap(Collection<T> beans,
 														String keyPropertyName,
 														String valuePropertyName,
-														Map<PK, PV> target) {
+														Map<K, V> target) {
 
 		Assert.notNull(beans, "beans must not null");
 		Assert.hasLength(keyPropertyName, "keyPropertyName must not blank");
@@ -32,8 +32,8 @@ public class ConvertUtils {
 
 		try {
 			for (T bean : beans) {
-				PK pk = (PK) BeanUtils.getProperty(bean, keyPropertyName);
-				PV pv = (PV) BeanUtils.getProperty(bean, valuePropertyName);
+				K pk = (K) BeanUtils.getProperty(bean, keyPropertyName);
+				V pv = (V) BeanUtils.getProperty(bean, valuePropertyName);
 				target.put(pk, pv);
 			}
 
@@ -70,10 +70,10 @@ public class ConvertUtils {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T, PV> void convertPropertyToList(Collection<T> beans,
+	public static <T, V> void convertPropertyToList(Collection<T> beans,
 													String propertyName,
 													String separator,
-													List<PV> target) {
+													List<V> target) {
 
 		Assert.notNull(beans, "beans must not null");
 		Assert.hasLength(propertyName, "propertyName must not blank");
@@ -82,7 +82,7 @@ public class ConvertUtils {
 		try {
 
 			for (T bean : beans) {
-				target.add((PV) BeanUtils.getProperty(bean, propertyName));
+				target.add((V) BeanUtils.getProperty(bean, propertyName));
 			}
 
 		} catch (Exception e) {

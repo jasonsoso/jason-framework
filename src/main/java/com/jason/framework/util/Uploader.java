@@ -20,6 +20,13 @@ import javax.servlet.http.HttpServletRequest;
  */
 @SuppressWarnings("restriction")
 public class Uploader {
+	
+	// 文件大小限制，单位KB
+	private static final int MAX_SIZE = 10000;
+	
+	
+	
+	
 	// 输出文件地址
 	private String url = "";
 	// 上传文件名
@@ -41,14 +48,15 @@ public class Uploader {
 	// 文件允许格式
 	private String[] allowFiles = { ".rar", ".doc", ".docx", ".zip", ".pdf",".txt", ".swf", ".wmv", ".gif", ".png", ".jpg", ".jpeg", ".bmp" };
 	// 文件大小限制，单位KB
-	private int maxSize = 10000;
+	private int maxSize = MAX_SIZE;
 	
-	private HashMap<String, String> errorInfo = new HashMap<String, String>();
+	private Map<String, String> errorInfo = new HashMap<String, String>();
 
 	public Uploader(HttpServletRequest request) {
 		this.request = request;
-		HashMap<String, String> tmp = this.errorInfo;
-		tmp.put("SUCCESS", "SUCCESS"); //默认成功
+		Map<String, String> tmp = this.errorInfo;
+		//默认成功
+		tmp.put("SUCCESS", "SUCCESS"); 
 		tmp.put("NOFILE", "未包含文件上传域");
 		tmp.put("TYPE", "不允许的文件格式");
 		tmp.put("SIZE", "文件大小超出限制");
@@ -171,7 +179,7 @@ public class Uploader {
 	 * @return string
 	 */
 	private String getFileExt(String fileName) {
-		return fileName.substring(fileName.lastIndexOf("."));
+		return fileName.substring(fileName.lastIndexOf('.'));
 	}
 
 	/**
@@ -190,9 +198,10 @@ public class Uploader {
 	 * @return 
 	 */
 	private String getFolder(String path) {
+		String pathstr = path;
 		SimpleDateFormat formater = new SimpleDateFormat("yyyyMMdd");
-		path += "/" + formater.format(new Date());
-		File dir = new File(this.getPhysicalPath(path));
+		pathstr += "/" + formater.format(new Date());
+		File dir = new File(this.getPhysicalPath(pathstr));
 		if (!dir.exists()) {
 			try {
 				dir.mkdirs();
@@ -201,7 +210,7 @@ public class Uploader {
 				return "";
 			}
 		}
-		return path;
+		return pathstr;
 	}
 
 	/**
@@ -221,10 +230,18 @@ public class Uploader {
 		this.savePath = savePath;
 	}
 
+	/*public void setAllowFiles(String[] allowFiles) {
+		this.allowFiles = allowFiles;
+	}*/
+	
+	public String[] getAllowFiles() {
+		return allowFiles;
+	}
+
 	public void setAllowFiles(String[] allowFiles) {
 		this.allowFiles = allowFiles;
 	}
-
+	
 	public void setMaxSize(int size) {
 		this.maxSize = size;
 	}

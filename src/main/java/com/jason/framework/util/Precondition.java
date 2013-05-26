@@ -6,6 +6,9 @@ package com.jason.framework.util;
  * @date 2013-5-25 下午10:25:54
  */
 public final class Precondition {
+	
+	public Precondition(){}
+	
 	public static void isTrue(boolean expression) {
 		isTrue(expression, "");
 	}

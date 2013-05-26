@@ -13,18 +13,25 @@ import org.slf4j.LoggerFactory;
  * @date 2013-2-7 下午11:59:25
  */
 public class CommandLineHelper {
-	private static final Logger logger = LoggerFactory.getLogger(CommandLineHelper.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CommandLineHelper.class);
+	
+	private CommandLineHelper(){
+	}
+	
+	private static final String WINDOWS = "windows";
+	private static final String LINUX = "linux";
+	
 	/**
 	 * 当前应用系统
 	 */
-	private static String OS;
+	private static String os;
 
 	static {
-		OS = System.getProperty("os.name").toLowerCase()
-			.startsWith("windows")?"windows":"linux";
+		os = System.getProperty("os.name").toLowerCase()
+			.startsWith(WINDOWS)?WINDOWS:LINUX;
 	}
 	public static String getOS() {
-		return OS;
+		return os;
 	}
 	
 	/**
@@ -35,13 +42,13 @@ public class CommandLineHelper {
 	 */
 	public static boolean exec(String cmd) throws IOException,InterruptedException {
 		String[] cmds;
-		if (OS.equals("windows")) {
+		if (os.equals(WINDOWS)) {
 			cmds = new String[] { "cmd.exe", "/c", cmd };
 		} else {
 			cmds = new String[] { "/bin/sh", "-c", cmd };
 		}
-		if (logger.isDebugEnabled()) {
-			logger.debug("执行" + OS + "系统命令: " + cmd);
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("执行" + os + "系统命令: " + cmd);
 		}
 		return exec(cmds);
 	}
@@ -59,7 +66,7 @@ public class CommandLineHelper {
 	public static Process execing(String cmd) throws IOException {
 
 		String[] cmds;
-		if (OS.equals("windows")) {
+		if (os.equals(WINDOWS)) {
 			cmds = new String[] { "cmd.exe", "/c", cmd };
 		} else {
 			cmds = new String[] { "/bin/sh", "-c", cmd };
@@ -78,15 +85,16 @@ public class CommandLineHelper {
 	 * @throws IOException
 	 */
 	public static String loadStream(InputStream in) throws IOException {
+		InputStream is = in;
 		int ptr = 0;
-		in = new BufferedInputStream(in);
+		is = new BufferedInputStream(is);
 		StringBuffer buffer = new StringBuffer();
 		try {
-			while ((ptr = in.read()) != -1) {
+			while ((ptr = is.read()) != -1) {
 				buffer.append((char) ptr);
 			}
 		} finally {
-			in.close();
+			is.close();
 		}
 		return buffer.toString();
 	}

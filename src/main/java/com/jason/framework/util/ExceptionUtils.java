@@ -3,7 +3,7 @@ package com.jason.framework.util;
 import java.lang.reflect.InvocationTargetException;
 
 
-public class ExceptionUtils {
+public final class ExceptionUtils {
 
 	/**
 	 * 

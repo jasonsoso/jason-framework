@@ -17,10 +17,10 @@ import com.jason.framework.orm.Page;
 /**
  * Hibernate Repository Support
  * 
- * @param <PK>
+ * @param <K>
  * @param <T>
  */
-public class HibernateRepositorySupport<PK extends Serializable, T> extends HibernateRepository {
+public class HibernateRepositorySupport<K extends Serializable, T> extends HibernateRepository {
 
 	private Class<T> clazz;
 
@@ -178,7 +178,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	 * @return T
 	 */
 	@SuppressWarnings("unchecked")
-	public T lazyGet(PK id) {
+	public T lazyGet(K id) {
 		Assert.notNull(id, "id must not be null");
 		Assert.notNull(clazz, "clazz must not be null");
 
@@ -191,7 +191,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 	 * @return T
 	 */
 	@SuppressWarnings("unchecked")
-	public T get(PK id) {
+	public T get(K id) {
 
 		Assert.notNull(id, "id must not be null");
 
@@ -211,7 +211,7 @@ public class HibernateRepositorySupport<PK extends Serializable, T> extends Hibe
 		getHibernateTemplate().getSessionFactory().evict(clazz);
 	}
 
-	public void emptyCache(PK id) {
+	public void emptyCache(K id) {
 		getHibernateTemplate().getSessionFactory().evict(clazz, id);
 	}
 

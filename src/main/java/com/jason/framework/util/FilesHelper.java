@@ -2,6 +2,8 @@ package com.jason.framework.util;
 
 public final class FilesHelper {
 	
+	public FilesHelper(){}
+	
 	/**
 	 * 后缀名称前插入字符串 拼装字符
 	 * eg:123.jpg -> 123_${insertString}.jpg
@@ -78,7 +80,6 @@ public final class FilesHelper {
 	 * @return
 	 */
 	public static String getFilePathFormUrl(String path){
-		String filePath = path.substring(0,path.lastIndexOf('/')+1);
-		return filePath;
+		return path.substring(0,path.lastIndexOf('/')+1);
 	}
 }

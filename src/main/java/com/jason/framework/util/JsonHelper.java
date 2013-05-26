@@ -11,13 +11,13 @@ import org.codehaus.jackson.map.SerializationConfig;
  * @date 2013-5-25 下午10:14:35
  */
 public final class JsonHelper {
-	private static ObjectMapper MAPPER = new ObjectMapper();
+	private static ObjectMapper mapper = new ObjectMapper();
 
 	static {
-		MAPPER.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
-		MAPPER.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
-		MAPPER.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		MAPPER.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
+		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+		mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
 	}
 
 	/**
@@ -27,7 +27,7 @@ public final class JsonHelper {
 	 */
 	public static String toJsonString(Object bean) {
 		try {
-			return MAPPER.writeValueAsString(bean);
+			return mapper.writeValueAsString(bean);
 		} catch (Exception e) {
 			throw ExceptionUtils.toUnchecked(e);
 		}
@@ -42,7 +42,7 @@ public final class JsonHelper {
 	 */
 	public static <T> T fromJsonString(String jsonString, Class<T> clazz) {
 		try {
-			return MAPPER.readValue(jsonString, clazz);
+			return mapper.readValue(jsonString, clazz);
 		} catch (Exception e) {
 			throw ExceptionUtils.toUnchecked(e);
 		}
@@ -57,7 +57,7 @@ public final class JsonHelper {
 	public static <T> T newfor(Object bean, Class<T> clazz) {
 		try {
 
-			return MAPPER.convertValue(bean, clazz);
+			return mapper.convertValue(bean, clazz);
 		} catch (Exception e) {
 			throw ExceptionUtils.toUnchecked(e);
 		}

@@ -14,10 +14,13 @@ import org.slf4j.LoggerFactory;
  */
 public final class MD5Utils {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MD5Utils.class);
+	public MD5Utils(){
+	}
 	
-	private final static String[] HEX_DIGITS  = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
-	final static char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8',
+	private static final Logger LOGGER = LoggerFactory.getLogger(MD5Utils.class);
+	
+	private static final String[] HEX_DIGITS  = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
+	private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8',
 		'9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
 		'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v'};
 	/***
@@ -60,7 +63,7 @@ public final class MD5Utils {
 			MessageDigest md = MessageDigest.getInstance("MD5"); 
 			resultString=byteArrayToHexString(md.digest(resultString.getBytes())); 
 		}catch (Exception ex) {
-			logger.error("asMD5Encode error!", ex);
+			LOGGER.error("asMD5Encode error!", ex);
 		} 
 		return resultString; 
 	}

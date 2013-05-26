@@ -14,6 +14,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @date 2013-1-27 上午11:26:35
  */
 public final class SpringRequestHolder {
+	public SpringRequestHolder(){}
 	
 	/**
 	 * get request

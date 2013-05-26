@@ -19,19 +19,19 @@ public final class HibernateHelper {
 	/**
 	 * 
 	 * @param <T>
-	 * @param <PV>
+	 * @param <V>
 	 * @param srcObjects
 	 * @param propertyValues
 	 * @param clazz
 	 */
-	public static <T, PV> void mergeByIds(Collection<T> srcObjects, Collection<PV> propertyValues, Class<T> clazz) {
+	public static <T, V> void mergeByIds(Collection<T> srcObjects, Collection<V> propertyValues, Class<T> clazz) {
 		merge(srcObjects, propertyValues, "id", clazz);
 	}
 
 	/**
 	 * 
 	 * @param <T>
-	 * @param <PV>
+	 * @param <V>
 	 * @param srcObjects
 	 * @param propertyValues
 	 * @param propertyName
@@ -40,7 +40,7 @@ public final class HibernateHelper {
 	 * 
 	 * cannot use on hibernate cascade=save-or-update
 	 */
-	public static <T, PV> void merge(Collection<T> srcObjects, Collection<PV> propertyValues, String propertyName, Class<T> clazz) {
+	public static <T, V> void merge(Collection<T> srcObjects, Collection<V> propertyValues, String propertyName, Class<T> clazz) {
 		Assert.notNull(srcObjects, "srcObjects must not null");
 		Assert.notNull(propertyValues, "propertyValues must not null");
 		Assert.notNull(clazz, "clazz must not null");
@@ -68,7 +68,7 @@ public final class HibernateHelper {
 				}
 			}
 
-			for (PV property : propertyValues) {
+			for (V property : propertyValues) {
 				if (property != null) {
 					T element = clazz.newInstance();
 					BeanUtils.setProperty(element, propertyName, property);

@@ -115,7 +115,7 @@ public class HQLQuery {
 	public HQLQuery criteria(String property, String propertyKey, MatchType type, Object propertyValue, AndOr andOr) {
 		if (null != propertyValue && isNotBlank(propertyValue.toString())) {
 
-			String propertyKeyStr = transformKey(type, propertyKey);
+			String propertyKeyStr = transformKey(propertyKey);
 
 			if (!values.isEmpty()) {
 				query.append(format("%s ", andOr.asMeta()));
@@ -133,11 +133,10 @@ public class HQLQuery {
 	}
 
 	/**
-	 * @param matchType
 	 * @param key
 	 * @return
 	 */
-	private String transformKey(MatchType matchType, String key) {
+	private String transformKey(String key) {
 		String keyStr = key;
 		keyStr = keyStr.replaceAll("\\.", "_");
 		if (values.containsKey(keyStr)) {
@@ -164,7 +163,7 @@ public class HQLQuery {
 		}
 	}
 
-	private static String RANDOM_SOURCE = "0123456789ABCDEF";
+	private static final String RANDOM_SOURCE = "0123456789ABCDEF";
 
 	/**
 	 * @param length
@@ -326,7 +325,7 @@ public class HQLQuery {
 		int cursor = 0;
 		for (int index : avaliablePropertyValues) {
 
-			String key = transformKey(matchTypes[index], properties[index]);
+			String key = transformKey(properties[index]);
 			Object value = transformValue(matchTypes[index], values[index]);
 
 			if (matchTypes[index] == MatchType.IN || matchTypes[index] == MatchType.NI) {

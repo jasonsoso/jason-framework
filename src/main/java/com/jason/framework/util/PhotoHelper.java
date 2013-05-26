@@ -19,7 +19,7 @@ import org.springframework.util.Assert;
  * @date 2013-2-4 下午11:36:07
  */
 public final class PhotoHelper {
-	private static final  Logger logger = LoggerFactory.getLogger(PhotoHelper.class);
+	private static final  Logger LOGGER = LoggerFactory.getLogger(PhotoHelper.class);
 
 
 	/**
@@ -55,7 +55,7 @@ public final class PhotoHelper {
 
 			createThumbnailInternal(image, thumbnail, widthInt, heightInt);
 		} catch (Exception e) {
-			logger.error("createThumbnail error！", e);
+			LOGGER.error("createThumbnail error！", e);
 		}
 	}
 
@@ -98,7 +98,7 @@ public final class PhotoHelper {
 			String format = StringsHelper.suffix(dest.getName());
 			ImageIO.write(destImage, StringUtils.isBlank(format) ? "jpg" : format, dest);
 		} catch (IOException e) {
-			logger.error("watermark error！", e);
+			LOGGER.error("watermark error！", e);
 		}
 	}
 

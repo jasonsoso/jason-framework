@@ -14,7 +14,9 @@ import org.slf4j.LoggerFactory;
  */
 public final class PropertiesUtils {
 	
-	private static final Logger logger = LoggerFactory.getLogger(PropertiesUtils.class);
+	public PropertiesUtils(){}
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesUtils.class);
 	
 	/**
 	 * 缓存配置文件
@@ -44,7 +46,7 @@ public final class PropertiesUtils {
 			props.load(loader.getResourceAsStream(propNameStr));
 			propMap.put(propNameStr, props);
 		} catch (Exception e) {
-			logger.error("getProperties(String) error",e);
+			LOGGER.error("getProperties(String) error",e);
 		}
 		return props;
 	}
