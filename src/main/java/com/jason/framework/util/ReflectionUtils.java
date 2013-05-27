@@ -213,9 +213,9 @@ public abstract class ReflectionUtils {
 	public static RuntimeException convertReflectionExceptionToUnchecked(Exception e) {
 		if (e instanceof IllegalAccessException || e instanceof IllegalArgumentException
 				|| e instanceof NoSuchMethodException) {
-			return new IllegalArgumentException("Reflection Exception.", e);
+			return new IllegalArgumentException(e);
 		} else if (e instanceof InvocationTargetException) {
-			return new RuntimeException("Reflection Exception.", ((InvocationTargetException) e).getTargetException());
+			return new RuntimeException(((InvocationTargetException) e).getTargetException());
 		} else if (e instanceof RuntimeException) {
 			return (RuntimeException) e;
 		}

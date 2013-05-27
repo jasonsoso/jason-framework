@@ -6,7 +6,7 @@ package com.jason.framework.util;
  */
 public final class StringsHelper {
 	
-	public StringsHelper(){}
+	private StringsHelper(){}
 	
 	public static String suffix(String filename) {
 		if (isBlank(filename)) {

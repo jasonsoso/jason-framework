@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * @author Jason
  * @date 2013-2-7 下午11:59:25
  */
-public class CommandLineHelper {
+public final class CommandLineHelper {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CommandLineHelper.class);
 	
 	private CommandLineHelper(){

@@ -22,8 +22,16 @@ import com.jason.framework.web.filter.FlashModel.Message;
 import com.jason.framework.web.filter.FlashModel.MessageType;
 
 public abstract class ControllerSupport extends MultiActionController {
-	protected Logger logger = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
+	/**
+	 * 
+	 * @return
+	 */
+	protected Logger getLogger() {
+		return logger;
+	}
+	
 	/**
 	 * Redirect Success
 	 * @param redirectAttributes
@@ -97,7 +105,11 @@ public abstract class ControllerSupport extends MultiActionController {
 	 * @see org.springframework.web.servlet.mvc.multiaction.MultiActionController#bind(javax.servlet.http.HttpServletRequest, java.lang.Object)
 	 */
 	@Override
-	protected void bind(HttpServletRequest request, Object command) throws Exception {
-		super.bind(request, command);
+	protected void bind(HttpServletRequest request, Object command){
+		try {
+			super.bind(request, command);
+		} catch (Exception e) {
+			logger.error("bind error!", e);
+		}
 	}
 }

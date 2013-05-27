@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class PropertiesUtils {
 	
-	public PropertiesUtils(){}
+	private PropertiesUtils(){}
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesUtils.class);
 	

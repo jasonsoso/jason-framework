@@ -7,7 +7,7 @@ package com.jason.framework.util;
  */
 public final class Precondition {
 	
-	public Precondition(){}
+	private Precondition(){}
 	
 	public static void isTrue(boolean expression) {
 		isTrue(expression, "");

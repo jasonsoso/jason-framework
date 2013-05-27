@@ -22,7 +22,7 @@ import org.w3c.dom.NodeList;
  */
 public final class XPathUtils {
 	
-	public XPathUtils(){}
+	private XPathUtils(){}
 
 	private static final XPathFactory XPATH_FACTORY = XPathFactory.newInstance();
 

@@ -8,7 +8,7 @@ import java.util.UUID;
  * @date 2013-5-25 下午10:29:20
  */
 public final class UUIDGenerator {
-	public UUIDGenerator(){}
+	private UUIDGenerator(){}
 	
 	public static String getUUID() {
 		String strUuid = UUID.randomUUID().toString();

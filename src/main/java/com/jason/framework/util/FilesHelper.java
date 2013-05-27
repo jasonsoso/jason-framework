@@ -1,8 +1,7 @@
 package com.jason.framework.util;
 
 public final class FilesHelper {
-	
-	public FilesHelper(){}
+	private FilesHelper(){}
 	
 	/**
 	 * 后缀名称前插入字符串 拼装字符

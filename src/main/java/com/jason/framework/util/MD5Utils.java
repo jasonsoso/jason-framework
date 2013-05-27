@@ -14,8 +14,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class MD5Utils {
 	
-	public MD5Utils(){
-	}
+	private MD5Utils(){}
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(MD5Utils.class);
 	

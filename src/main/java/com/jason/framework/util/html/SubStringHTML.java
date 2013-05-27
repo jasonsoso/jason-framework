@@ -10,7 +10,7 @@ package com.jason.framework.util.html;
  */
 public final class SubStringHTML {
 	
-	public SubStringHTML(){}
+	private SubStringHTML(){}
 
 	/**
 	 * 去除html标签  截字符串 
@@ -45,8 +45,10 @@ public final class SubStringHTML {
 		StringBuffer result = new StringBuffer();
 		int n = 0;
 		char temp;
-		boolean isCode = false; // 是不是HTML代码
-		boolean isHTML = false; // 是不是HTML特殊字符,如 
+		// 是不是HTML代码
+		boolean isCode = false; 
+		// 是不是HTML特殊字符,如 
+		boolean isHTML = false; 
 		for(int i = 0; i < param.length(); i++) {
 			temp = param.charAt(i);
 			if(temp == '<') {
@@ -84,7 +86,8 @@ public final class SubStringHTML {
 	 * @date 2010-7-15
 	 */
 	private static String fix(String str) {
-		StringBuffer fixed = new StringBuffer(); // 存放修复后的字符串
+		// 存放修复后的字符串
+		StringBuffer fixed = new StringBuffer(); 
 		TagsList[] unclosedTags = getUnclosedTags(str);
 		// 生成新字符串
 		for(int i = unclosedTags[0].size() - 1; i > -1; i--) {
@@ -100,25 +103,35 @@ public final class SubStringHTML {
 		return fixed.toString();
 	}
 	private static TagsList[] getUnclosedTags(String str) {
-		StringBuffer temp = new StringBuffer(); 	// 存放标签
+		// 存放标签
+		StringBuffer temp = new StringBuffer(); 	
 		TagsList[] unclosedTags = new TagsList[2];
-		unclosedTags[0] = new TagsList(); 	// 前不闭合，如有</div>而前面没有<div> 
-		unclosedTags[1] = new TagsList(); 	// 后不闭合，如有<div>而后面没有</div> 
-		boolean flag = false;	// 记录双引号"或单引号' 
+		// 前不闭合，如有</div>而前面没有<div> 
+		unclosedTags[0] = new TagsList(); 
+		// 后不闭合，如有<div>而后面没有</div> 
+		unclosedTags[1] = new TagsList(); 	
+		// 记录双引号"或单引号' 
+		boolean flag = false;	
 		@SuppressWarnings("unused")
-		char currentJump = ' '; 	// 记录需要跳过''还是"" 
-		char current = ' ', last = ' '; 	// 当前 & 上一个  
+		// 记录需要跳过''还是"" 
+		char currentJump = ' '; 	
+		// 当前 & 上一个  
+		char current = ' ', last = ' '; 	
 		// 开始判断 
 		for(int i = 0; i < str.length();) {
-			current = str.charAt(i++); 	// 读取一个字符 
+			// 读取一个字符 
+			current = str.charAt(i++); 	
 			if(current == '"' || current == '\'') {
-				flag = flag ? false : true; 	// 若为引号，flag翻转 
+				// 若为引号，flag翻转 
+				flag = flag ? false : true; 	
 				currentJump = current;
 			}
 			if(!flag) {
-				if(current == '<') { 	// 开始提取标签 
+				// 开始提取标签 
+				if(current == '<') { 	
 					current = str.charAt(i++);
-					if(current == '/') { 	// 标签的闭合部分，如</div> 
+					// 标签的闭合部分，如</div> 
+					if(current == '/') { 	
 						current = str.charAt(i++);
 						// 读取标签 
 						while(i < str.length() && current != '>') {
@@ -126,11 +139,15 @@ public final class SubStringHTML {
 							current = str.charAt(i++);
 						}
 						// 从tags_bottom移除一个闭合的标签 
-						if(!unclosedTags[1].remove(temp.toString())) { // 若移除失败，说明前面没有需要闭合的标签 
-							unclosedTags[0].add(temp.toString()); // 此标签需要前闭合 
+						// 若移除失败，说明前面没有需要闭合的标签 
+						if(!unclosedTags[1].remove(temp.toString())) { 
+							// 此标签需要前闭合 
+							unclosedTags[0].add(temp.toString()); 
 						}
-						temp.delete(0, temp.length()); // 清空temp 
-					}else { // 标签的前部分，如<div> 
+						// 清空temp 
+						temp.delete(0, temp.length()); 
+					}else { 
+						// 标签的前部分，如<div> 
 						last = current;
 						while(i < str.length() && current != ' ' && current != ' ' && current != '>') {
 							temp.append(current);
@@ -141,26 +158,27 @@ public final class SubStringHTML {
 						while(i < str.length() && current != '>') {
 							last = current;
 							current = str.charAt(i++);
-							if(current == '"' || current == '\'') { // 判断引号 
+							// 判断引号 
+							if(current == '"' || current == '\'') { 
 								flag = flag ? false : true;
 								currentJump = current;
-								if(flag) { // 若引号不闭合，跳过到下一个引号之间的内容 
-									//while(i < str.length() && str.charAt(i++) != currentJump)
-									//	;
+								// 若引号不闭合，跳过到下一个引号之间的内容 
+								if(flag) { 
+									//while(i < str.length() && str.charAt(i++) != currentJump)	;
 									current = str.charAt(i++);
 									flag = false;
 								}
 							}
 						}
-						if(last != '/' && current == '>'){ // 判断这种类型：<TagName /> 
+						// 判断这种类型：<TagName /> 
+						if(last != '/' && current == '>'){ 
 							unclosedTags[1].add(temp.toString());
 						}
 						temp.delete(0, temp.length());
 					}
 				}
 			}else {
-				//while(i < str.length() && str.charAt(i++) != currentJump)
-				//	; // 跳过引号之间的部分 
+				//while(i < str.length() && str.charAt(i++) != currentJump)	; // 跳过引号之间的部分 
 				flag = false;
 			}
 		}

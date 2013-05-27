@@ -20,7 +20,7 @@ import org.springframework.util.Assert;
  */
 public final class PhotoHelper {
 	private static final  Logger LOGGER = LoggerFactory.getLogger(PhotoHelper.class);
-
+	private PhotoHelper(){}
 
 	/**
 	 * 创建缩略图

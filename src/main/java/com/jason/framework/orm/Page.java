@@ -89,19 +89,19 @@ public class Page<T> implements Serializable {
 	 *            the order to set
 	 * @return
 	 */
-	public Page<T> setOrder(String orderString) {
-		String order = orderString;
-		if (order == null){
-			order = "";
+	public Page<T> setOrder(String orderStrings) {
+		String orderString = orderStrings;
+		if (orderString == null){
+			orderString = "";
 		}
-		String[] orders = StringUtils.split(StringUtils.lowerCase(order), ',');
+		String[] orders = StringUtils.split(StringUtils.lowerCase(orderString), ',');
 		for (String orderStr : orders) {
 			if (!StringUtils.equals(DESC, orderStr) && !StringUtils.equals(ASC, orderStr)){
 				throw new IllegalArgumentException("order parameters only allow desc and asc ");
 			}
 		}
 
-		this.order = StringUtils.lowerCase(order);
+		this.order = StringUtils.lowerCase(orderString);
 		return this;
 	}
 
