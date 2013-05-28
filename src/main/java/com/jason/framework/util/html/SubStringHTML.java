@@ -164,7 +164,7 @@ public final class SubStringHTML {
 								currentJump = current;
 								// 若引号不闭合，跳过到下一个引号之间的内容 
 								if(flag) { 
-									//while(i < str.length() && str.charAt(i++) != currentJump)	;
+									/* while(i < str.length() && str.charAt(i++) != currentJump)	; */
 									current = str.charAt(i++);
 									flag = false;
 								}
@@ -178,7 +178,7 @@ public final class SubStringHTML {
 					}
 				}
 			}else {
-				//while(i < str.length() && str.charAt(i++) != currentJump)	; // 跳过引号之间的部分 
+				/*while(i < str.length() && str.charAt(i++) != currentJump)	; // 跳过引号之间的部分  */ 
 				flag = false;
 			}
 		}
