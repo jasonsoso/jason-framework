@@ -323,6 +323,54 @@
 				</executions>
 			</plugin>
 
+			<!-- Hibernate生成实体配置 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>hibernate3-maven-plugin</artifactId>
+				<version>2.2</version>
+		
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.21</version>
+					</dependency>
+					<dependency>
+						<groupId>cglib</groupId>
+						<artifactId>cglib</artifactId>
+						<version>2.2</version>
+					</dependency>
+				</dependencies>
+		
+				<configuration>
+					<components>
+						<component>
+							<name>hbm2java</name>
+							<outputDirectory>src/test/java/</outputDirectory>
+							<!-- 主要用于反向控制数据库引擎通过JDBC连接数据 -->
+							<implementation>jdbcconfiguration</implementation>
+						</component>
+						<component>  
+	                        <name>hbm2hbmxml</name>  
+	                        <outputDirectory>src/test/java/</outputDirectory>  
+	                    </component>
+	                    
+					</components>
+					
+					<componentProperties>
+						<!-- Hibernate配置文件 -->
+						<configurationfile>src/test/resources/META-INF/plugin/hibernate.cfg.xml</configurationfile>
+						<revengfile>src/test/resources/META-INF/plugin/hibernate.reveng.xml</revengfile>
+						<!-- 如果设为true将会生成JPA的元素注解 使用annotations from javax.persistence and org.hibernate.annotations 
+							默认值是false -->
+						<ejb3>false</ejb3>
+						<!-- 指明生成java类的包名 -->
+						<packagename>com.jason.framework.domain</packagename>
+					</componentProperties>
+				</configuration>
+			</plugin>
+			<!-- Hibernate生成实体配置 -->  
+
     
 		</plugins>
 
