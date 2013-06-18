@@ -1,82 +1,53 @@
 package com.jason.framework.util;
 
 
-
 import java.security.MessageDigest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.security.NoSuchAlgorithmException;
 
 
 /**
- * MD5加密
+ * CAS MD5默认加密
  * @author Jason
+ * @date 2013-6-18 下午10:02:16
  */
 public final class MD5Utils {
-	
-	private MD5Utils(){}
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(MD5Utils.class);
-	
-	private static final String[] HEX_DIGITS  = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
-	private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8',
-		'9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
-		'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v'};
-	/***
-	 * 
-	 * @param b
-	 * @return
-	 */
-	private static String byteArrayToHexString(byte[] b) { 
-		StringBuffer resultSb = new StringBuffer(); 
-		for (int i = 0; i < b.length; i++) { 
-			resultSb.append(byteToHexString(b[i])); 
-		} 
-		return resultSb.toString(); 
-	} 
 
-	/***
-	 * 
-	 * @param b
-	 * @return
-	 */
-	private static String byteToHexString(byte b) { 
-		int n = b; 
-		if (n < 0){
-			n = 256 + n; 
-		}
-		int d1 = n / 16; 
-		int d2 = n % 16; 
-		return HEX_DIGITS[d1] + HEX_DIGITS[d2]; 
-	} 
+    private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
-	/***
-	 * 
-	 * @param origin
-	 * @return
-	 */
-	public static String asMD5Encode(String origin) { 
-		String resultString = null; 
-		try {
-			resultString=origin; 
-			MessageDigest md = MessageDigest.getInstance("MD5"); 
-			resultString=byteArrayToHexString(md.digest(resultString.getBytes())); 
-		}catch (Exception ex) {
-			LOGGER.error("asMD5Encode error!", ex);
-		} 
-		return resultString; 
-	}
-	public static String asMD5EncodeUnsigned(String origin){
-		return toUnsignedString(asMD5Encode(origin));
-	}
-	private static String toUnsignedString(String base) {
-		String dest="";
-		for(int i=0;i<base.length();i=i+2){
-			int ten=Integer.parseInt(base.substring(i,i+2),16);
-			int index=ten%32;
-			dest=dest+DIGITS[index];
-		}
-		return dest;
-	}
+
+    /**
+     * 加密
+     * @param password
+     * @return
+     */
+    public static String encode(final String password) {
+        if (password == null) {
+            return null;
+        }
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.update(password.getBytes());
+            final byte[] digest = messageDigest.digest();
+            return getFormattedText(digest);
+        } catch (final NoSuchAlgorithmException e) {
+            throw new SecurityException(e);
+        }
+    }
+
+    /**
+     * Takes the raw bytes from the digest and formats them correct.
+     * 
+     * @param bytes the raw bytes from the digest.
+     * @return the formatted bytes.
+     */
+    private static String getFormattedText(byte[] bytes) {
+        final StringBuilder buf = new StringBuilder(bytes.length * 2);
+
+        for (int j = 0; j < bytes.length; j++) {
+            buf.append(HEX_DIGITS[(bytes[j] >> 4) & 0x0f]);
+            buf.append(HEX_DIGITS[bytes[j] & 0x0f]);
+        }
+        return buf.toString();
+    }
+
 }
-
