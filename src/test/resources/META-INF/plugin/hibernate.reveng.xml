@@ -4,5 +4,5 @@
 <hibernate-reverse-engineering>     
     <!--<schema-selection match-schema="TMDCS"/>-->     
     <!-- <table-filter match-schema="cityhome"  match-name=".*"/> -->     
-	<schema-selection match-schema="jason_sso" match-table="security_user"/> 
+	<schema-selection match-schema="jason" match-table="security_user"/> 
 </hibernate-reverse-engineering>
