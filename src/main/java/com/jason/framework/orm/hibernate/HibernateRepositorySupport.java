@@ -51,6 +51,13 @@ public class HibernateRepositorySupport<K extends Serializable, T> extends Hiber
 		Assert.notNull(domain, "domain must not null");
 		getSession().delete(domain);
 	}
+	/**
+	 * @param id
+	 */
+	public void delete (K id){
+		Assert.notNull(id, "id must not null");
+		delete(this.get(id));
+	}
 
 	/**
 	 * 
