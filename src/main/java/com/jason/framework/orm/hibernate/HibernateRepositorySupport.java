@@ -52,6 +52,7 @@ public class HibernateRepositorySupport<K extends Serializable, T> extends Hiber
 		getSession().delete(domain);
 	}
 	/**
+	 * delete domain from id
 	 * @param id
 	 */
 	public void delete (K id){
