@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -91,16 +91,15 @@ public abstract class ControllerSupport extends MultiActionController {
 	}
 	
 
-	/**
-	 * Binder Date
-	 * @param binder
+	/* (non-Javadoc)
+	 * @see org.springframework.web.servlet.mvc.multiaction.MultiActionController#initBinder(javax.servlet.http.HttpServletRequest, org.springframework.web.bind.ServletRequestDataBinder)
 	 */
 	@InitBinder
-	protected void initBinder(WebDataBinder binder) {
-		binder.setIgnoreInvalidFields(true);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), false));
-	}
-
+    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
+        binder.setIgnoreInvalidFields(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+    }
+	
 	/* (non-Javadoc)
 	 * @see org.springframework.web.servlet.mvc.multiaction.MultiActionController#bind(javax.servlet.http.HttpServletRequest, java.lang.Object)
 	 */
