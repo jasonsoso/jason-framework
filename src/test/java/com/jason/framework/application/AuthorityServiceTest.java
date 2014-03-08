@@ -1,5 +1,6 @@
 package com.jason.framework.application;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,22 +15,22 @@ public class AuthorityServiceTest extends AbstractTestBase {
 	@Autowired
 	private AuthorityService authorityService;
 	
+	private Authority entity ;
+	
+	@Before
+	public void testSave(){
+		entity = new Authority();
+		entity.setName("NAME");
+		entity.setPermission("P");
+		authorityService.store(entity);
+	}
 	@Test
 	public void testGet(){
-		Authority authority = authorityService.get("40289f813e60ae93013e60bcd7880003");
+		String id = entity.getId();
+		Authority authority = authorityService.get(id);
 		logger.info(authority.getName());
 	}
-	/**
-	 * 
-	 * SQLQueryFactory sqlQueryFactory 根据sql进行查询
-	 * @author JasonTan
-	 * @since 2013-5-25
-	 */
-	@Test
-	public void testGetfromSQL(){
-		Authority object = authorityService.getfromSQL("40289f813e60ae93013e60bcd7880003");
-		logger.info(object.toString());
-	}
+	
 	
 	
 }

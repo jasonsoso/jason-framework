@@ -15,7 +15,7 @@ public class PhotoHelperTest {
 
 	@Test
 	public void testcreateThumbnail() throws Exception {
-		String imgurl="C:\\Users\\tanjianna\\Desktop\\jason-blog\\tao\\3.jpg";
+		String imgurl="H:\\IMG_0131.JPG";
 		File file =  new File(imgurl);
 		InputStream in = new FileInputStream(file);
 		//按最少比例 生成缩略图
