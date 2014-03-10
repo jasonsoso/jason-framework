@@ -2,8 +2,10 @@ package com.jason.framework.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -29,9 +31,12 @@ public class PhotoHelperTest {
 	
 	@Test
 	public void testwatermark() throws Exception {
-		String imgurl="C:\\Users\\tanjianna\\Desktop\\jason-blog\\tao\\2.jpg";
-		String waterurl="C:\\Users\\tanjianna\\Desktop\\jason-blog\\tao\\logo_wm.png";
-		PhotoHelper.watermark(imgurl, waterurl);
+		try {
+			String imgurl="C:\\Users\\tanjianna\\Desktop\\jason-blog\\tao\\2.jpg";
+			String waterurl="C:\\Users\\tanjianna\\Desktop\\jason-blog\\tao\\logo_wm.png";
+			PhotoHelper.watermark(imgurl, waterurl);
+		} catch (Exception e) {
+		}
 	}
 	
 }
