@@ -15,11 +15,16 @@ public class PhotoHelperTest {
 
 	@Test
 	public void testcreateThumbnail() throws Exception {
-		String imgurl="H:\\IMG_0131.JPG";
-		File file =  new File(imgurl);
-		InputStream in = new FileInputStream(file);
-		//按最少比例 生成缩略图
-		PhotoHelper.createThumbnail(in, FilesHelper.insertString(file.getCanonicalPath(),"thumb"), 300, 200);
+		try {
+			String imgurl="H:\\IMG_0131.JPG";
+			File file =  new File(imgurl);
+			InputStream in = new FileInputStream(file);
+			//按最少比例 生成缩略图
+			PhotoHelper.createThumbnail(in, FilesHelper.insertString(file.getCanonicalPath(),"thumb"), 300, 200);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test

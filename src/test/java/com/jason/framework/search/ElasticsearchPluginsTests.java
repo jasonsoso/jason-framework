@@ -37,7 +37,7 @@ public class ElasticsearchPluginsTests {
     @Before
     public void before() {
         client = new TransportClient()
-        	.addTransportAddress(new InetSocketTransportAddress("192.168.1.108", 9300));
+        	.addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
     }
     
     @After
@@ -154,7 +154,7 @@ public class ElasticsearchPluginsTests {
 	public void testIKQuery() throws IOException {
 		AnalyzeResponse analyzeResponse = client.admin().indices()
 				.prepareAnalyze("twitter", "测试elasticsearch分词器的效果")
-				//.setAnalyzer("ik")
+				.setAnalyzer("ik")
 				.execute().actionGet();
 
 		logger.info("size:{}", analyzeResponse.getTokens().size());
