@@ -343,12 +343,33 @@
 				</executions>
 			</plugin>
 
+			<!-- jaxws Plugin -->
+			<!-- 
+            <plugin>
+                <groupId>org.jvnet.jax-ws-commons</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <packageName>com.xpen.webservice.client</packageName>
+                    <wsdlDirectory>src/test/resources/META-INF/ws</wsdlDirectory>
+                    <wsdlFiles>
+                        <wsdlFile>FDSService20140325.xml</wsdlFile>
+                    </wsdlFiles>
+                </configuration>
+            </plugin>-->
+			
 			<!-- Hibernate生成实体配置 -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>hibernate3-maven-plugin</artifactId>
 				<version>2.2</version>
-		
 				<dependencies>
 					<dependency>
 						<groupId>mysql</groupId>
@@ -361,7 +382,6 @@
 						<version>2.2</version>
 					</dependency>
 				</dependencies>
-		
 				<configuration>
 					<components>
 						<component>
@@ -374,23 +394,20 @@
 	                        <name>hbm2hbmxml</name>  
 	                        <outputDirectory>src/test/java/</outputDirectory>  
 	                    </component>
-	                    
 					</components>
-					
 					<componentProperties>
 						<!-- Hibernate配置文件 -->
 						<configurationfile>src/test/resources/META-INF/plugin/hibernate.cfg.xml</configurationfile>
 						<revengfile>src/test/resources/META-INF/plugin/hibernate.reveng.xml</revengfile>
 						<!-- 如果设为true将会生成JPA的元素注解 使用annotations from javax.persistence and org.hibernate.annotations 
 							默认值是false -->
-						<ejb3>false</ejb3>
+						<ejb3>true</ejb3>
 						<!-- 指明生成java类的包名 -->
 						<packagename>com.jason.framework.domain</packagename>
 					</componentProperties>
 				</configuration>
 			</plugin>
 			<!-- Hibernate生成实体配置 -->  
-
     
 		</plugins>
 
