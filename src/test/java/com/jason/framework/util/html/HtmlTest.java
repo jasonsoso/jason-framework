@@ -64,6 +64,9 @@ public class HtmlTest {
             str += "......";  
         }
         System.out.println(str);
+        
+        String str2 = HtmlHelper.filterHtml(input);
+        System.out.println(str2);
 	}
 	@Test
 	public void testHtml2(){
