@@ -1,0 +1,353 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions name="FDSService" targetNamespace="urn:dsat.gov.mo:fds/ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:tns="urn:dsat.gov.mo:fds/ws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/2006/07/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xsd:schema targetNamespace="urn:dsat.gov.mo:fds/ws" xmlns:jxb="http://www.w3.org/2001/xml.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:tns="urn:dsat.gov.mo:fds/ws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/2006/07/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:complexType name="Transaction">
+				<xsd:annotation>
+					<xsd:appinfo>
+						<jxb:class>
+							<jxb:javadoc>
+								Transaction is an encapsulation for all data
+								submitted from the Client App (for example, DAVIS) to the
+								Service Portal.
+							</jxb:javadoc>
+						</jxb:class>
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:sequence id="charge" maxOccurs="unbounded" minOccurs="0">
+						<xsd:element name="Charge">
+
+							<xsd:complexType>
+								<xsd:annotation>
+									<xsd:appinfo>
+										<jxb:class name="Charge">
+											<jxb:javadoc>Charge is a Payment Demand calculated from the
+												Client App. Once Service Portal receives it, the System will
+												generate a Fee Items form based on those Charges.
+											</jxb:javadoc>
+										</jxb:class>
+									</xsd:appinfo>
+								</xsd:annotation>
+								<xsd:attribute name="lookupId" type="xsd:string">
+									<xsd:annotation>
+										<xsd:appinfo>
+											<jxb:property>
+												<jxb:javadoc>
+													lookupId is used to retrieve a Runtime Fee
+													Group by the Service Portal.
+												</jxb:javadoc>
+											</jxb:property>
+										</xsd:appinfo>
+									</xsd:annotation>
+								</xsd:attribute>
+								<xsd:attribute name="code" type="xsd:string">
+									<xsd:annotation>
+										<xsd:appinfo>
+											<jxb:property>
+												<jxb:javadoc>
+													"code" is a meta data of a Charge which will be
+													displayed on a receipt. In the real case, it can be a
+													Vehicle Checking Code.
+												</jxb:javadoc>
+											</jxb:property>
+										</xsd:appinfo>
+									</xsd:annotation>
+								</xsd:attribute>
+								<xsd:attribute name="onRefundUrl" type="xsd:string"/>
+								<xsd:attribute name="onRefundUrlRedirect" type="xsd:boolean"/>
+								<xsd:attribute name="qty" type="xsd:int"/>
+								<xsd:attribute name="runtimePrice" type="xsd:double">
+									<xsd:annotation>
+										<xsd:appinfo>
+											<jxb:property>
+												<jxb:javadoc>
+													"runtimePrice" is a price of this Charge which
+													is calculated from the Client app. If such a value is
+													given, the corresponding price value of all Runtime Fees in
+													the Runtime Fee Group will be overrided by this value.
+												</jxb:javadoc>
+											</jxb:property>
+										</xsd:appinfo>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:sequence id="extTxnNo" maxOccurs="unbounded" minOccurs="0">
+						<xsd:element name="ExternalTxnNo">
+							<xsd:complexType>
+								<xsd:annotation>
+									<xsd:appinfo>
+										<jxb:class name="ExternalTxnNo">
+											<jxb:javadoc>
+												ExternalTxnNo is a Transaction Number generated
+												by the Client app.
+											</jxb:javadoc>
+										</jxb:class>
+									</xsd:appinfo>
+								</xsd:annotation>
+								<xsd:attribute name="content" type="xsd:string"/>
+								<xsd:attribute name="getMobileNoUrl" type="xsd:string"/>
+								<xsd:attribute default="false" name="getMobileNoUrlRedirect" type="xsd:boolean"/>
+								<xsd:attribute name="onDeliverUrl" type="xsd:string"/>
+								<xsd:attribute default="false" name="onDeliverUrlRedirect" type="xsd:boolean"/>
+								<xsd:attribute name="onCreateDTSUrl" type="xsd:string"/>
+								<xsd:attribute default="false" name="onCreateDTSUrlRedirect" type="xsd:boolean"/>
+								<xsd:attribute default="true" name="valid" type="xsd:boolean"/>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:sequence>
+						<xsd:element name="Client">
+							<xsd:complexType>
+								<xsd:annotation>
+									<xsd:appinfo>
+										<jxb:class name="Client">
+											<jxb:javadoc>
+												The Client's information of a Transaction is
+												defined here.
+											</jxb:javadoc>
+										</jxb:class>
+									</xsd:appinfo>
+								</xsd:annotation>
+								<xsd:attribute name="name" type="xsd:string"/>
+								<xsd:attribute name="idNo" type="xsd:string"/>
+								<xsd:attribute name="telNo" type="xsd:string"/>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:sequence>
+				<xsd:attribute name="txnNo" type="xsd:string"/>
+				<xsd:attribute name="description" type="xsd:string"/>
+				<xsd:attribute name="onPayUrl" type="xsd:string"/>
+				<xsd:attribute default="false" name="onPayUrlRedirect" type="xsd:boolean"/>
+				<xsd:attribute name="onEditUrl" type="xsd:string"/>
+				<xsd:attribute default="false" name="onEditUrlRedirect" type="xsd:boolean"/>
+				<xsd:attribute name="onVoidUrl" type="xsd:string"/>
+				<xsd:attribute default="false" name="onVoidUrlRedirect" type="xsd:boolean"/>
+				<xsd:attribute name="onRefundUrl" type="xsd:string"/>
+				<xsd:attribute default="false" name="onRefundUrlRedirect" type="xsd:boolean"/>
+				<xsd:attribute name="onDeliverUrl" type="xsd:string"/>
+				<xsd:attribute default="false" name="onDeliverUrlRedirect" type="xsd:boolean"/>
+				<xsd:attribute name="getMobileNoUrl" type="xsd:string"/>
+				<xsd:attribute default="false" name="getMobileNoUrlRedirect" type="xsd:boolean"/>
+				<xsd:attribute name="onCreateDTSUrl" type="xsd:string"/>
+				<xsd:attribute default="false" name="onCreateDTSUrlRedirect" type="xsd:boolean"/>
+				<xsd:attribute name="remark" type="xsd:string"/>
+			</xsd:complexType>
+			<xsd:element name="submit">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="transaction" type="tns:Transaction">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="submitResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="updateWorkflowStatus">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="txnNo" type="xsd:string"/>
+						<xsd:element name="statusKey" type="xsd:string"/>
+						<xsd:element name="statusDisplayZh" type="xsd:string"/>
+						<xsd:element name="statusDisplayPt" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="updateWorkflowStatusResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="createTransaction">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="serviceCode" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="createTransactionResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="transaction" type="tns:Transaction"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="increaseTransaction">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="caseId" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="increaseTransactionResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="transaction" type="tns:Transaction"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="fault">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="code" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="updateWorkflowStatusRequest">
+    <wsdl:part element="tns:updateWorkflowStatus" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createTransactionRequest">
+    <wsdl:part element="tns:createTransaction" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="submitRequest">
+    <wsdl:part element="tns:submit" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="submitResponse">
+    <wsdl:part element="tns:submitResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createTransactionResponse">
+    <wsdl:part element="tns:createTransactionResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="increaseTransactionResponse">
+    <wsdl:part element="tns:increaseTransactionResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="FDSException">
+    <wsdl:part element="tns:fault" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateWorkflowStatusResponse">
+    <wsdl:part element="tns:updateWorkflowStatusResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="increaseTransactionRequest">
+    <wsdl:part element="tns:increaseTransaction" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="FDSService">
+    <wsdl:operation name="submit">
+<wsdl:documentation>
+				allow the client app to submit a Transaction to
+				the Service Portal. Such a Transaction should be created by the
+				Service Portal at first.
+			</wsdl:documentation>
+      <wsdl:input message="tns:submitRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:submitResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:FDSException" name="fault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="updateWorkflowStatus">
+<wsdl:documentation>
+				As the users need to know the Workflow Status of
+				a Transaction in an individual Client App. This method is used to
+				update these Workflow Statuses. However, the Workflow Status of a
+				Transaction defined in the Service Portal is independennt from
+				thoses submitted from the Client Apps.a 
+			</wsdl:documentation>
+      <wsdl:input message="tns:updateWorkflowStatusRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:updateWorkflowStatusResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:FDSException" name="fault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="createTransaction">
+<wsdl:documentation>
+				Create a FRESH Transaction in the Service Portal.
+			</wsdl:documentation>
+      <wsdl:input message="tns:createTransactionRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:createTransactionResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:FDSException" name="fault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="increaseTransaction">
+<wsdl:documentation>
+				Create a FRESH Transaction in the Service Portal
+				by increasing the Document Sequence of the most updated Transaction
+				with the given caseId.  
+			</wsdl:documentation>
+      <wsdl:input message="tns:increaseTransactionRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:increaseTransactionResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:FDSException" name="fault">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FDSServiceSOAP" type="tns:FDSService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="submit">
+      <soap:operation soapAction="urn:dsat.gov.mo:fds/ws/submit"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="updateWorkflowStatus">
+<wsdl:documentation/>
+      <soap:operation soapAction="urn:dsat.gov.mo:fds/ws/updateWorkflowStatus"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="createTransaction">
+      <soap:operation soapAction="urn:dsat.gov.mo:fds/ws/createTransaction"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="increaseTransaction">
+      <soap:operation soapAction="urn:dsat.gov.mo:fds/ws/increaseTransaction"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FDSService">
+    <wsdl:port binding="tns:FDSServiceSOAP" name="port1">
+      <soap:address location="http://was31:3902/newFds/ws/FDSService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

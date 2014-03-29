@@ -1,4 +1,4 @@
-package com.jason.framework.util;
+package com.jason.framework.serializer;
 
 
 import java.io.IOException;

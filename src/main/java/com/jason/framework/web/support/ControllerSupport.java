@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jason.framework.mapper.JsonMapper;
 import com.jason.framework.util.ExceptionUtils;
-import com.jason.framework.util.JsonHelper;
 import com.jason.framework.web.filter.FlashModel;
 import com.jason.framework.web.filter.FlashModel.Message;
 import com.jason.framework.web.filter.FlashModel.MessageType;
@@ -84,7 +84,7 @@ public abstract class ControllerSupport extends MultiActionController {
 	public static void writeJsonResult(HttpServletResponse response, Object message) {
 		try {
 			response.setContentType("text/html");
-			response.getWriter().write(String.format("%s", JsonHelper.toJsonString(message)));
+			response.getWriter().write(String.format("%s", JsonMapper.toJsonString(message)));
 		} catch (Exception e) {
 			throw ExceptionUtils.toUnchecked(e);
 		}

@@ -1,16 +1,21 @@
-package com.jason.framework.util;
+package com.jason.framework.mapper;
 
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 
+import com.jason.framework.util.ExceptionUtils;
+
+
 /**
  * Json 格式转换类
+ * 简单封装Jackson，实现JSON String<->Java Object的Mapper.
+ * 
  * @author Jason
  * @date 2013-5-25 下午10:14:35
  */
-public final class JsonHelper {
+public final class JsonMapper {
 	private static ObjectMapper mapper = new ObjectMapper();
 
 	static {
@@ -63,5 +68,5 @@ public final class JsonHelper {
 		}
 	}
 
-	private JsonHelper() {}
+	private JsonMapper() {}
 }
