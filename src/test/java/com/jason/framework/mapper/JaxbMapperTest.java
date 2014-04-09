@@ -8,7 +8,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -44,6 +43,20 @@ public class JaxbMapperTest {
 		System.out.println("Jaxb Object to Xml result:\n" + xml);
 		assertXmlByDom4j(xml);
 	}
+	@Test
+	public void objectToXmlWithCData() {
+		User user = new User();
+		user.setId(1L);
+		user.setPassword("pass");
+		user.setName("jason");
+
+		user.getInterests().add("movie");
+		user.getInterests().add("sports");
+
+		String xml = JaxbMapper.toXml(user, "UTF-8");
+		System.out.println("Jaxb Object to Xml result with CData:\n" + xml);
+		assertXmlByDom4j(xml);
+	}
 
 	@Test
 	public void xmlToObject() {
@@ -52,6 +65,7 @@ public class JaxbMapperTest {
 
 		System.out.println("Jaxb Xml to Object result:\n" + user);
 		Assert.assertEquals(user.getId(), new Long(1));
+		Assert.assertEquals("jason", user.getName());
 		
 		List<String> list = user.getInterests();
 		
@@ -110,12 +124,15 @@ public class JaxbMapperTest {
 		}
 		Element user = doc.getRootElement();
 		Assert.assertEquals(user.attribute("id").getValue(), "1");
+		
+		Assert.assertEquals(user.elementText("name"), "jason");
+		
 		//XPath 解析XML结构
 		Element interests = (Element) doc.selectSingleNode("//interests");
 		Assert.assertEquals(interests.elements().size(),2);
 		String movie = ((Element) interests.elements().get(0)).getText();
 		Assert.assertEquals(movie,"movie");
 	}
-
+	
 	
 }

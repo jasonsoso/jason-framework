@@ -1,8 +1,10 @@
 
 package com.jason.framework.mapper;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -20,6 +22,7 @@ import org.apache.commons.lang.Validate;
 
 import com.jason.framework.util.ExceptionUtils;
 import com.jason.framework.util.ReflectionUtils;
+import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
 
 
 /**
@@ -121,7 +124,14 @@ public class JaxbMapper {
 			if (StringUtils.isNotBlank(encoding)) {
 				marshaller.setProperty(Marshaller.JAXB_ENCODING, encoding);
 			}
-
+			marshaller.setProperty(CharacterEscapeHandler.class.getName(),
+	                new CharacterEscapeHandler() {
+	                    @Override
+	                    public void escape(char[] ac, int i, int j, boolean flag,
+	                            Writer writer) throws IOException {
+	                        writer.write(ac, i, j);
+	                    }
+	                });
 			return marshaller;
 		} catch (JAXBException e) {
 			throw ExceptionUtils.toUnchecked(e);
