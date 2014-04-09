@@ -17,6 +17,12 @@ import javax.xml.bind.Unmarshaller;
 import com.jason.framework.mapper.JaxbMapper;
 import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
  
+/**
+ * demo：Jaxb annotation初步使用
+ * http://www.cnblogs.com/fragranting/archive/2012/03/25/xml--jaxb.html
+ * @author Jason
+ * @date 2014-4-9 下午02:41:29
+ */
 public class ShopTest {
  
     public static void main(String[] args) throws JAXBException, IOException{
