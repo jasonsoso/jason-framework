@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.jason.framework.mapper.JaxbMapper;
 import com.jason.framework.mapper.JsonMapper;
 import com.jason.framework.util.ExceptionUtils;
 import com.jason.framework.web.filter.FlashModel;
@@ -83,7 +82,7 @@ public abstract class ControllerSupport extends MultiActionController {
 	 * @param response
 	 * @param message
 	 */
-	public static void writeJsonResult(HttpServletResponse response, Object message) {
+	protected  void writeJsonResult(HttpServletResponse response, Object message) {
 		try {
 			response.setContentType("text/html");
 			response.getWriter().write(String.format("%s", JsonMapper.toJsonString(message)));
@@ -91,21 +90,6 @@ public abstract class ControllerSupport extends MultiActionController {
 			throw ExceptionUtils.toUnchecked(e);
 		}
 	}
-	/**
-	 * 返回xml响应
-	 * @param response
-	 * @param message an XML element 
-	 */
-	public static void writeXmlResult(HttpServletResponse response, Object message) {
-		try {
-			response.setContentType("text/xml");
-			response.getWriter().write(String.format("%s", JaxbMapper.toXml(message, "UTF-8")));
-		} catch (Exception e) {
-			throw ExceptionUtils.toUnchecked(e);
-		}
-	}
-	
-
 	/* (non-Javadoc)
 	 * @see org.springframework.web.servlet.mvc.multiaction.MultiActionController#initBinder(javax.servlet.http.HttpServletRequest, org.springframework.web.bind.ServletRequestDataBinder)
 	 */

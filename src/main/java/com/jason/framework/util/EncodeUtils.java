@@ -11,9 +11,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.util.Assert;
 
 /**
- * 
- * @author loudyn
- * 
+ * @author Jason
  */
 public abstract class EncodeUtils {
 
