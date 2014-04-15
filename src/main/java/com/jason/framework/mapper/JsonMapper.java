@@ -1,5 +1,6 @@
 package com.jason.framework.mapper;
 
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -28,7 +29,7 @@ public final class JsonMapper {
 	/**
 	 * json to string
 	 * @param bean
-	 * @return
+	 * @return String
 	 */
 	public static String toJsonString(Object bean) {
 		try {
@@ -43,7 +44,7 @@ public final class JsonMapper {
 	 * @param <T>
 	 * @param jsonString
 	 * @param clazz
-	 * @return
+	 * @return <T> T
 	 */
 	public static <T> T fromJsonString(String jsonString, Class<T> clazz) {
 		try {
@@ -61,12 +62,43 @@ public final class JsonMapper {
 	 */
 	public static <T> T newfor(Object bean, Class<T> clazz) {
 		try {
-
 			return mapper.convertValue(bean, clazz);
 		} catch (Exception e) {
 			throw ExceptionUtils.toUnchecked(e);
 		}
 	}
+	
+	/**
+	 * readTree
+	 * @param jsonString 
+	 * @return JsonNode
+	 */
+	public static JsonNode readTree(String jsonString){
+		try {
+			return mapper.readTree(jsonString);
+		} catch (Exception e) {
+			throw ExceptionUtils.toUnchecked(e);
+		}
+	}
 
+	public static JsonNode path(JsonNode jsonNode,String fieldName){
+		return jsonNode.path(fieldName);
+	}
+	public static String asText(JsonNode jsonNode,String fieldName){
+		return path(jsonNode, fieldName).asText();
+	}
+	public static int asInt(JsonNode jsonNode,String fieldName){
+		return path(jsonNode, fieldName).asInt();
+	}
+	public static long asLong(JsonNode jsonNode,String fieldName){
+		return path(jsonNode, fieldName).asLong();
+	}
+	public static boolean asBoolean(JsonNode jsonNode,String fieldName){
+		return path(jsonNode, fieldName).asBoolean();
+	}
+	public static double asDouble(JsonNode jsonNode,String fieldName){
+		return path(jsonNode, fieldName).asDouble();
+	}
+	
 	private JsonMapper() {}
 }
