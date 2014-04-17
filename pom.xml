@@ -232,6 +232,14 @@
 		</dependency>
 
 
+       
+        <!-- rss : rome  -->
+        <dependency>
+            <groupId>rome</groupId>
+            <artifactId>rome</artifactId>
+            <version>1.0</version>
+        </dependency>
+        
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
