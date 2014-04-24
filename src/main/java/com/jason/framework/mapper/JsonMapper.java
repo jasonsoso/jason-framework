@@ -69,7 +69,7 @@ public final class JsonMapper {
 	}
 	
 	/**
-	 * readTree
+	 * 读取树结构的json字符串
 	 * @param jsonString 
 	 * @return JsonNode
 	 */
@@ -81,6 +81,12 @@ public final class JsonMapper {
 		}
 	}
 
+	/**
+	 * 解析JsonNode
+	 * @param jsonNode
+	 * @param fieldName
+	 * @return
+	 */
 	public static JsonNode path(JsonNode jsonNode,String fieldName){
 		return jsonNode.path(fieldName);
 	}
