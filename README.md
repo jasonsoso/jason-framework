@@ -10,10 +10,9 @@ JasonFramewok is a Spring Framework based JavaEE application reference architect
 
 
 ## Use (Dependency Information) ##
-`
-<dependency>   
-  <groupId>com.jason</groupId>   
-  <artifactId>framework</artifactId>   
-  <version>1.0.0</version>   
-</dependency>   
-`
+
+	<dependency>   
+		<groupId>com.jason</groupId>   
+		<artifactId>framework</artifactId>   
+		<version>1.0.1</version>   
+	</dependency>   
