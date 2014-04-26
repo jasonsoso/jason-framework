@@ -1,5 +1,7 @@
 ## Introduction ##
-JasonFramewok is a Spring Framework based JavaEE application reference architecture.
+JasonFramewok is a Spring Framework based JavaEE application reference architecture.	
+JasonFramewok是一个基于Spring框架JavaEE的应用框架。
+
 
 
 ## Clone and install ##
