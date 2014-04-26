@@ -8,7 +8,7 @@ JasonFramewok是一个基于Spring框架JavaEE的应用框架。
 `git clone https://github.com/jasonsoso/jason-framework.git`   
 `cd jason-framework`   
 `mvn clean compile install`   
-`mvn deploy   	 //Publish to nexus ,not the Required-election  `  
+`mvn deploy`   //Publish to nexus ,not the Required-election    
 
 
 ## Use (Dependency Information) ##
