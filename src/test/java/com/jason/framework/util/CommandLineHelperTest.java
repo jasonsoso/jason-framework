@@ -13,7 +13,7 @@ public class CommandLineHelperTest {
 	}
 	@Test
 	public void testExec() throws Exception {
-		boolean result = CommandLineHelper.exec("pwd");
+		boolean result = CommandLineHelper.exec("dir");
 		Assert.assertTrue(result);
 	}
 	

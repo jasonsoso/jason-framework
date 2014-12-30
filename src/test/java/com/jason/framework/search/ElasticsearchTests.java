@@ -59,7 +59,7 @@ public class ElasticsearchTests {
     @Before
     public void before() {
         client = new TransportClient()
-        	.addTransportAddress(new InetSocketTransportAddress("192.168.1.108", 9300));
+        	.addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
     }
     
     @After
@@ -89,7 +89,7 @@ public class ElasticsearchTests {
         
         
         Client client = new TransportClient()
-           .addTransportAddress(new InetSocketTransportAddress("192.168.1.108", 9300));
+           .addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
 
         
         client.close();
@@ -194,7 +194,7 @@ public class ElasticsearchTests {
                                             //.setQuery(QueryBuilders.termQuery("user", "jason"))             //Query 
                                             //.setQuery(QueryBuilders.fieldQuery("user", "jason"))
                                             .setQuery(QueryBuilders.queryString("jason"))
-                                            .setFilter(FilterBuilders.rangeFilter("age").from(24).to(30))   //Filter    
+                                            //.setFilter(FilterBuilders.rangeFilter("age").from(24).to(30))   //Filter    
                                             .setFrom(0).setSize(10).setExplain(true)                        //Page  
                                             .execute()
                                             .actionGet();

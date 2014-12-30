@@ -102,11 +102,10 @@
         </dependency>
         
         <dependency>
-            <groupId>org.elasticsearch</groupId>
-            <artifactId>elasticsearch</artifactId>
-            <version>0.90.2</version>
-            <scope>test</scope>
-        </dependency>
+		    <groupId>org.elasticsearch</groupId>
+		    <artifactId>elasticsearch</artifactId>
+		    <version>1.0.0</version>
+		</dependency>
 
 
 		<!-- Logging -->
