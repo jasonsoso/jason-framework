@@ -8,7 +8,7 @@ import redis.clients.jedis.Jedis;
 import com.jason.framework.util.Collections3;
 
 /**
- * Redis HashMap 的持久层 支撑类
+ * Redis HashMap 哈希 的持久层 支撑类
  * @author Jason
  * @date 2014年12月31日
  */
