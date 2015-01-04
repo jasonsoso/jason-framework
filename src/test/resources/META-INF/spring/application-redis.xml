@@ -15,8 +15,8 @@
 
     
 	<bean id="esTransportClientManager"  class="com.jason.framework.orm.redis.support.JedisConnectionFactory" >
-		<!-- <property name="hostName" value="192.168.0.16"></property>
-		<property name="port" value="8888"></property> -->
+		 <property name="hostName" value="192.168.0.16"></property>
+		<!-- <property name="port" value="8888"></property>  -->
     </bean>
 
 

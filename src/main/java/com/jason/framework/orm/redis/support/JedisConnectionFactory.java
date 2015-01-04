@@ -43,6 +43,8 @@ public class JedisConnectionFactory implements FactoryBean<JedisPool>,Initializi
 	public void afterPropertiesSet() {
 		
 		pool = new JedisPool(poolConfig, hostName, port, timeout,password);
+		
+		LOGGER.debug("redis/ssdb 创建连接池成功！hostName:"+hostName+" port:"+port);
 	}
 	@Override
 	public void destroy() {

@@ -87,7 +87,7 @@ public class HashMapJedisRepositorySupport extends JedisRepositorySupport{
 		boolean isBroken = false;
 		Jedis jedis = super.getJedis();
 		try {
-			if (jedis.exists(key)) {
+			if (exists(key,mapKey)) {
 				value = jedis.hget(key, mapKey);
 			}
 		} catch (Exception e) {
@@ -139,7 +139,7 @@ public class HashMapJedisRepositorySupport extends JedisRepositorySupport{
 	 * 
 	 * @param key
 	 * @param mapKey
-	 * @return
+	 * @return true 代表有此数据，false代表没有
 	 */
 	public boolean exists(String key, String mapKey) {
 		Jedis jedis = super.getJedis();
