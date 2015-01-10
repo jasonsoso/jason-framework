@@ -1,4 +1,3 @@
-
 package com.jason.framework.orm.redis.support;
 
 import org.slf4j.Logger;
@@ -28,7 +27,8 @@ public class JedisConnectionFactory implements FactoryBean<JedisPool>,Initializi
 	private JedisPool pool = null;
 	private JedisPoolConfig poolConfig = new JedisPoolConfig();
 
-	public JedisConnectionFactory() {}
+	public JedisConnectionFactory() {
+	}
 
 	/**
 	 * Constructs a new <code>JedisConnectionFactory</code> instance using the given pool configuration.

@@ -12,7 +12,7 @@ import com.jason.framework.AbstractTestBase;
 
 public class HashMapRepositoryTest extends AbstractTestBase{
 	@Autowired
-	private HashMapRepository hashMapRepository;
+	private HashRepository hashMapRepository;
 	
 	@Before
 	public void before(){

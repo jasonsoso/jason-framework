@@ -9,7 +9,7 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 
 /**
- * Jedis 持久层支撑类
+ * Jedis 持久层抽象支撑类
  * @author Jason
  * @date 2014年12月31日
  */
@@ -46,7 +46,7 @@ public abstract class JedisRepositorySupport {
         try {
             jedis = getJedisPool().getResource();
         } catch (Exception e) {
-            throw new JedisConnectionException(e);
+            throw new JedisConnectionException("获取redis对象失败！",e);
         }
         return jedis;
 	}

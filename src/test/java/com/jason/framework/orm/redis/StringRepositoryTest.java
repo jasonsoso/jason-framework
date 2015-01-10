@@ -21,6 +21,7 @@ public class StringRepositoryTest extends AbstractTestBase{
 		long end  = System.currentTimeMillis();
 		System.out.println("单个插入10000,花费毫秒："+(end-start));
 	}
+	
 	@Test
 	public void testSet2(){
 		long start = System.currentTimeMillis();
@@ -33,6 +34,7 @@ public class StringRepositoryTest extends AbstractTestBase{
 		long end  = System.currentTimeMillis();
 		System.out.println("批量插入10000,花费毫秒："+(end-start));
 	}
+	
 	@Test
 	public void testGet(){
 		for (int i = 0; i < 100; i++) {
@@ -41,6 +43,7 @@ public class StringRepositoryTest extends AbstractTestBase{
 			System.out.println(key+" "+val);
 		}
 	}
+	
 	@Test
 	public void testGets(){
 		String[] keys = new String[]{"keyString:1", "keyString:2","keyString:3"};
@@ -49,6 +52,7 @@ public class StringRepositoryTest extends AbstractTestBase{
 			System.out.println(str);
 		}
 	}
+	
 	@Test
 	public void testDel(){
 		for (int i = 0; i < 100; i++) {
@@ -58,7 +62,5 @@ public class StringRepositoryTest extends AbstractTestBase{
 			}
 		}
 	}
-	
-	
 	
 }
