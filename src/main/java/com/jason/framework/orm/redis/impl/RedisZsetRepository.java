@@ -5,6 +5,7 @@ import java.util.Set;
 import org.springframework.stereotype.Repository;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Tuple;
 
 import com.jason.framework.orm.redis.ZsetRepository;
 import com.jason.framework.orm.redis.support.JedisRepositorySupport;
@@ -30,7 +31,21 @@ public class RedisZsetRepository extends JedisRepositorySupport implements ZsetR
 			super.returnResource(jedis, isBroken);
 		}
 	}
-
+	@Override
+	public Double get(String key, String val) {
+		Jedis jedis = super.getJedis();
+		Double score = null;
+		boolean isBroken = false;
+		try {
+			score = jedis.zscore(key, val);
+		} catch (Exception e) {
+			isBroken = true;
+			super.getLogger().error("zscore key error!", e);
+		} finally {
+			super.returnResource(jedis, isBroken);
+		}
+		return score;
+	}
 	@Override
 	public Long size(String key) {
 		Long l = null;
@@ -62,6 +77,21 @@ public class RedisZsetRepository extends JedisRepositorySupport implements ZsetR
 		}
 		return set;
 	}
+	@Override
+	public Set<Tuple> getListDescWithScores(String key) {
+		Set<Tuple> set = null;
+		Jedis jedis = super.getJedis();
+		boolean isBroken = false;
+		try {
+			set = jedis.zrevrangeWithScores(key, 0, -1);
+		} catch (Exception e) {
+			isBroken = true;
+			super.getLogger().error("zcard key error!", e);
+		} finally {
+			super.returnResource(jedis, isBroken);
+		}
+		return set;
+	}
 
 	@Override
 	public Set<String> getListAsc(String key) {
@@ -70,6 +100,21 @@ public class RedisZsetRepository extends JedisRepositorySupport implements ZsetR
 		boolean isBroken = false;
 		try {
 			set = jedis.zrange(key, 0, -1);
+		} catch (Exception e) {
+			isBroken = true;
+			super.getLogger().error("zcard key error!", e);
+		} finally {
+			super.returnResource(jedis, isBroken);
+		}
+		return set;
+	}
+	@Override
+	public Set<Tuple> getListAscWithScores(String key) {
+		Set<Tuple> set = null;
+		Jedis jedis = super.getJedis();
+		boolean isBroken = false;
+		try {
+			set = jedis.zrangeWithScores(key, 0, -1);
 		} catch (Exception e) {
 			isBroken = true;
 			super.getLogger().error("zcard key error!", e);
@@ -92,4 +137,8 @@ public class RedisZsetRepository extends JedisRepositorySupport implements ZsetR
 			super.returnResource(jedis, isBroken);
 		}
 	}
+	
+	
+
+
 }

@@ -12,7 +12,7 @@ import com.jason.framework.AbstractTestBase;
 public class StringRepositoryTest extends AbstractTestBase{
 	@Autowired
 	private StringRepository stringRepository;
-	@Test
+	//@Test
 	public void testSet(){
 		long start = System.currentTimeMillis();
 		for (int i = 0; i < 10000; i++) {
@@ -22,7 +22,7 @@ public class StringRepositoryTest extends AbstractTestBase{
 		System.out.println("单个插入10000,花费毫秒："+(end-start));
 	}
 	
-	@Test
+	//@Test
 	public void testSet2(){
 		long start = System.currentTimeMillis();
 		Map<String,String> batchData = new HashMap<String, String>();

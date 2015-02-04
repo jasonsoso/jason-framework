@@ -1,14 +1,10 @@
 package com.jason.framework.orm.redis.util;
 
-import java.util.Date;
-
 
 public class Person {
 	
 	private String name;
 	private int age;
-	private Date birth;
-	
 	public String getName() {
 		return name;
 	}
@@ -20,12 +16,6 @@ public class Person {
 	}
 	public void setAge(int age) {
 		this.age = age;
-	}
-	public Date getBirth() {
-		return birth;
-	}
-	public void setBirth(Date birth) {
-		this.birth = birth;
 	}
 	
 	

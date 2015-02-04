@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import redis.clients.jedis.Tuple;
+
 import com.jason.framework.AbstractTestBase;
 
 public class ZsetRepositoryTest extends AbstractTestBase{
@@ -29,6 +31,10 @@ public class ZsetRepositoryTest extends AbstractTestBase{
 		Long size2 = zsetRepository.size(key);
 		Assert.assertEquals(size2.longValue(), 2);
 		
+		Double s = zsetRepository.get(key, "blue");
+		Assert.assertEquals(s.doubleValue(), 5800,5800);
+		
+		
 	}
 	
 	@Test
@@ -39,8 +45,24 @@ public class ZsetRepositoryTest extends AbstractTestBase{
 		
 		Set<String> set2 =zsetRepository.getListAsc(key);
 		printSet(set2);
+		
+		
+		Set<Tuple> tuples = zsetRepository.getListDescWithScores(key);
+		printSetWithScores(tuples);
+		Set<Tuple> tuples2 = zsetRepository.getListAscWithScores(key);
+		printSetWithScores(tuples2);
 	}
 
+	private void printSetWithScores(Set<Tuple> tuples) {
+		System.out.println("----------------------");
+		Iterator<Tuple> it = tuples.iterator();
+		while (it.hasNext()) {
+			Tuple tuple = it.next();
+			System.out.println(tuple.getElement()+" "+tuple.getScore());
+		}
+	}
+	
+	
 	private void printSet(Set<String> set) {
 		System.out.println("----------------------");
 		// 获得迭代器
