@@ -7,7 +7,7 @@ import org.springframework.util.Assert;
 
 import java.nio.charset.Charset;
 
-public class JacksonJsonRedisSerializer<T> implements RedisSerializer<T> {
+public class JacksonSerializer<T> implements SerializerHandler<T> {
 
 	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
@@ -15,7 +15,7 @@ public class JacksonJsonRedisSerializer<T> implements RedisSerializer<T> {
 
 	private ObjectMapper objectMapper = new ObjectMapper();
 
-	public JacksonJsonRedisSerializer(Class<T> type) {
+	public JacksonSerializer(Class<T> type) {
 		this.javaType = TypeFactory.defaultInstance().constructType(type);
 	}
 
@@ -24,25 +24,25 @@ public class JacksonJsonRedisSerializer<T> implements RedisSerializer<T> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public T deserialize(byte[] bytes) throws SerializationException {
+	public T deserialize(byte[] bytes) throws SerializerException {
 		if (isEmpty(bytes)) {
 			return null;
 		}
 		try {
 			return (T) this.objectMapper.readValue(bytes, 0, bytes.length, javaType);
 		} catch (Exception ex) {
-			throw new SerializationException("Could not read JSON: " + ex.getMessage(), ex);
+			throw new SerializerException("Could not read JSON: " + ex.getMessage(), ex);
 		}
 	}
 
-	public byte[] serialize(Object t) throws SerializationException {
+	public byte[] serialize(Object t) throws SerializerException {
 		if (t == null) {
 			return new byte[0];
 		}
 		try {
 			return this.objectMapper.writeValueAsBytes(t);
 		} catch (Exception ex) {
-			throw new SerializationException("Could not write JSON: " + ex.getMessage(), ex);
+			throw new SerializerException("Could not write JSON: " + ex.getMessage(), ex);
 		}
 	}
 

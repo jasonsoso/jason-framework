@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class JacksonJsonRedisSerializerTest {
+public class JacksonSerializerTest {
 	@Test
 	public void testSerializeStr(){
-		JacksonJsonRedisSerializer<String> serializerTest = new JacksonJsonRedisSerializer<String>(String.class);
+		SerializerHandler<String> serializerTest = new JacksonSerializer<String>(String.class);
 		byte[] b = serializerTest.serialize("I love you!");
 		System.out.println(b);
 		String v = serializerTest.deserialize(b);
@@ -17,7 +17,7 @@ public class JacksonJsonRedisSerializerTest {
 	@Test
 	public void testSerializeObj(){
 		
-		JacksonJsonRedisSerializer<Person> serializer = new JacksonJsonRedisSerializer<Person>(Person.class);
+		SerializerHandler<Person> serializer = new JacksonSerializer<Person>(Person.class);
 		Person p1 = new Person();
 		p1.setName("Jason");
 		p1.setAge(25);
