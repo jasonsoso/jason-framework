@@ -81,4 +81,14 @@ public final class FilesHelper {
 	public static String getFilePathFormUrl(String path){
 		return path.substring(0,path.lastIndexOf('/')+1);
 	}
+	/**
+	 * @param fileName
+	 * @return
+	 */
+	public static String getMajorName(String fileName) {
+		if (fileName.indexOf(".") != -1) {
+			return fileName.substring(0, fileName.lastIndexOf("."));
+		}
+		return fileName;
+	}
 }

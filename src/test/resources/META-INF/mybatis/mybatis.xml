@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.jason.framework.domain.template.Template" alias="Template" />
+ 		
+	</typeAliases>
+	
+	<plugins>
+		<plugin interceptor="com.jason.framework.orm.mybatis.MybatisPagePlugin">
+			<property name="dialect" value="com.jason.framework.orm.dialect.impl.MySQLDialect"/>
+		</plugin>
+	</plugins>
+	
+</configuration>
