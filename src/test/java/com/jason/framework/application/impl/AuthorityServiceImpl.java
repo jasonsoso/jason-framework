@@ -6,6 +6,7 @@ import java.util.Map;
 import org.hibernate.SQLQuery;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jason.framework.application.AuthorityService;
@@ -17,6 +18,7 @@ import com.jason.framework.orm.hibernate.SQLQueryFactory;
 
 
 @Transactional
+@Service
 public class AuthorityServiceImpl implements AuthorityService {
 
 	private AuthorityRepository authorityRepository;
