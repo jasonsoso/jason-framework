@@ -2,7 +2,9 @@ package com.jason.framework.orm;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -21,6 +23,8 @@ public class Page<T> implements Serializable {
 	private boolean autoCount = true;
 	private long totalCount = -1;
 
+	private Map<String, Object> params = new HashMap<String, Object>();
+	
 	private List<T> result = Collections.emptyList();
 
 	/**
@@ -188,5 +192,14 @@ public class Page<T> implements Serializable {
 			return pageNo - 1;
 		}
 		return pageNo;
+	}
+	
+	public Map<String, Object> getParams() {
+		return params;
+	}
+
+	public Page<T> setParams(Map<String, Object> params) {
+		this.params = params;
+		return this;
 	}
 }

@@ -1,4 +1,4 @@
-package com.jason.framework.search;
+package com.jason.framework.orm.elasticsearch;
 
 
 import java.io.IOException;

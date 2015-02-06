@@ -7,10 +7,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.Date;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 
+import com.jason.framework.util.DateHelper;
 import com.jason.framework.util.ExceptionUtils;
 import com.jason.framework.util.IOUtils;
 
@@ -119,6 +121,100 @@ public final class EntityUtils {
 		}
 	}
 
+
+	/**
+	 * 对象转换为字符串
+	 * @param actual
+	 * @return
+	 * @throws Exception
+	 */
+	public static String toString(Object actual) {
+		return (actual==null) ? "" : actual.toString();
+	}
+	
+	/**
+	 * 对象转换为Long对象
+	 * @param obj
+	 * @return
+	 * @throws Exception
+	 */
+	public static Long toLong(Object obj){
+		Long l = 0L;
+		if(obj==null){
+			return l;
+		}
+		String str = toString(obj);
+		try {
+			l = Long.parseLong(str);
+		} catch (Exception e) {
+			l=0L;
+		}
+		return l;
+	}
+	/**
+	 * 对象转换为long
+	 * @param obj
+	 * @return
+	 * @throws Exception
+	 */
+	public static int toint(Object obj){
+		int i = 0;
+		try {
+			i = Integer.valueOf(String.valueOf(obj)).intValue();
+		} catch (Exception e) {
+			i=0;
+		}
+		return i;
+	}
+	/**
+	 * 对象转换为long
+	 * @param obj
+	 * @return
+	 * @throws Exception
+	 */
+	public static long tolong(Object obj){
+		long l = 0;
+		try {
+			l = Long.valueOf(String.valueOf(obj)).longValue();
+		} catch (Exception e) {
+			l=0;
+		}
+		return l;
+	}
+	/**
+	 * 对象转换为double
+	 * @param obj
+	 * @return
+	 */
+	public static double todouble(Object obj){
+		double d = 0;
+		try {
+			d = Double.valueOf(String.valueOf(obj)).doubleValue();
+		} catch (Exception e) {
+			d=0;
+		}
+		return d;
+	}
+	/**
+	 * 对象转换为Date
+	 * @param obj
+	 * @return
+	 */
+	public static Date toDate(Object actual){
+		String dateStr = toString(actual);
+		return DateHelper.toDate(dateStr, DateHelper.YYYYMMDD_HHMMSS);
+	}
+	/**
+	 * long 转换为 Date
+	 * @param actual
+	 * @return
+	 */
+	public static Date toDate(long actual){
+		Date date = new Date(actual);
+		return date;
+	}
+	
+	
 	private EntityUtils() {
 	}
 

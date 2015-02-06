@@ -108,6 +108,12 @@
 		    <artifactId>elasticsearch</artifactId>
 		    <version>1.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.nlpcn</groupId>
+			<artifactId>nlp-lang</artifactId>
+			<version>0.2</version>
+			<scope>compile</scope>
+		</dependency>
 		
 		<!-- redis -->
 		<dependency>
@@ -451,8 +457,9 @@
 				</configuration>
 			</plugin>
 			<!-- Hibernate生成实体配置 -->
-
-			<plugin>
+			
+			<!-- avro生成Java代码时用 -->
+			<!-- <plugin>
                 <groupId>org.apache.avro</groupId>
                 <artifactId>avro-maven-plugin</artifactId>
                 <version>${avro.version}</version>
@@ -467,7 +474,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
     
 		</plugins>
 

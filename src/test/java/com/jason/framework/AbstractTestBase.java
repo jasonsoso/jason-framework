@@ -9,7 +9,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 @ContextConfiguration(locations = {"classpath:/META-INF/spring/application-root.xml",
-								   "classpath:/META-INF/spring/application-redis.xml"})
+								   "classpath:/META-INF/spring/application-redis.xml",
+								   "classpath:/META-INF/spring/application-elasticsearch.xml"})
 public class AbstractTestBase extends AbstractTransactionalJUnit4SpringContextTests{
 
 	protected static MockHttpServletRequest request;
