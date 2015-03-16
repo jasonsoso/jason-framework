@@ -310,6 +310,10 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+	    <repository>
+	        <id>mvn-repo</id>
+	        <url>http://maven.nlpcn.org/</url>
+	    </repository>
 	</repositories>
 	<build>
 		<plugins>
