@@ -60,6 +60,17 @@ public abstract class ControllerSupport extends MultiActionController {
 	}
 
 	/**
+	 * Redirect Error
+	 * @param redirectAttributes
+	 * @param error
+	 * @param e
+	 */
+	public final void error(RedirectAttributes redirectAttributes,String error,Throwable e) {
+		logger.error(error,e);
+		FlashModel.setErrorMessage(redirectAttributes,error);
+	}
+	
+	/**
 	 * Redirect Warning
 	 * @param redirectAttributes
 	 * @param warning
@@ -107,7 +118,7 @@ public abstract class ControllerSupport extends MultiActionController {
 		try {
 			super.bind(request, command);
 		} catch (Exception e) {
-			logger.error("bind error!", e);
+			throw ExceptionUtils.toUnchecked(e, "bind error!");
 		}
 	}
 }

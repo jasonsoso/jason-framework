@@ -127,11 +127,13 @@
             <groupId>org.apache.avro</groupId>
             <artifactId>avro</artifactId>
             <version>${avro.version}</version>
+            <scope>test</scope>
         </dependency>
 		<dependency>
             <groupId>org.apache.avro</groupId>
             <artifactId>avro-ipc</artifactId>
             <version>${avro.version}</version>
+            <scope>test</scope>
         </dependency>
 
 		<!-- Logging -->
