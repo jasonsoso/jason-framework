@@ -34,9 +34,9 @@ import com.jason.framework.orm.elasticsearch.support.ESHelper;
 
 
 
-public class InfoRepositoryTest  extends AbstractTestBase {
+public class InfoRepositoryTests  extends AbstractTestBase {
 	
-	private static Logger logger = LoggerFactory.getLogger(InfoRepositoryTest.class);
+	private static Logger logger = LoggerFactory.getLogger(InfoRepositoryTests.class);
 
     @Autowired
     private InfoRepository infoRepository;

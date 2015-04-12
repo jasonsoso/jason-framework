@@ -17,7 +17,7 @@ import com.jason.framework.orm.elasticsearch.domain.IndexData;
  * @author Jason
  * @date 2014-10-10
  */
-public class IndexRepositoryTest  extends AbstractTestBase {
+public class IndexRepositoryTests  extends AbstractTestBase {
 	
 
     @Autowired
