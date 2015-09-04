@@ -9,9 +9,22 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
+import com.jason.framework.util.EncodeUtils;
+
+/**
+ * DES加密与解密
+ * @author Jason
+ * @date 2015-9-4 上午11:45:21
+ */
 public class DESUtil {
+	
+	/** key 密钥 */
 	private static final byte[] DES_KEY = "12345678".getBytes();
+	/** iv 初始向量 */
 	private static final byte[] IV = "12345678".getBytes();
+	/** 编码  */
+	private static final String CHARSET_NAME = "GBK";
+	
 	
 	/**
 	 * 使用cbc,PKCS5Padding填充模式进行加密,密钥大于等于8位,只取8位,初始向量使用密钥倒置后8个byte,此方法能与php兼容
@@ -60,13 +73,11 @@ public class DESUtil {
 				cipher.init(Cipher.ENCRYPT_MODE, key, sr);
 			}
 			else{
-				
 				IvParameterSpec iv2 = new IvParameterSpec(IV);
 				cipher.init(Cipher.ENCRYPT_MODE, key, iv2);
 			}
 			// 加密，并把字节数组编码成字符串
-			encryptedData = new sun.misc.BASE64Encoder().encode(cipher
-					.doFinal(data.getBytes("GBK")));
+			encryptedData = EncodeUtils.encodeBase64(cipher.doFinal(data.getBytes(CHARSET_NAME)));
 		} catch (Exception e) {
 			// log.error("加密错误，错误信息：", e);
 			throw new RuntimeException("加密错误，错误信息："+e.getMessage(), e);
@@ -99,14 +110,11 @@ public class DESUtil {
 				cipher.init(Cipher.DECRYPT_MODE, key, sr);
 			}
 			else{
-				
 				IvParameterSpec iv2 = new IvParameterSpec(IV);
 				cipher.init(Cipher.DECRYPT_MODE, key, iv2);
 			}
 			// 把字符串解码为字节数组，并解密
-			decryptedData = new String(
-					cipher.doFinal(new sun.misc.BASE64Decoder()
-					.decodeBuffer(cryptData)),"GBK");
+			decryptedData = new String(cipher.doFinal(EncodeUtils.decodeBase64(cryptData)),CHARSET_NAME);
 		} catch (Exception e) {
 			// log.error("解密错误，错误信息：", e);
 			throw new RuntimeException("解密错误，错误信息："+e.getMessage(), e);
@@ -115,7 +123,7 @@ public class DESUtil {
 	}
 	
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		String encryptDESwithCBC = DESUtil.encrypt("中国人");
+		String encryptDESwithCBC = DESUtil.encrypt("ABC");
 		System.out.println(encryptDESwithCBC);
 		System.out.println(DESUtil.decode(encryptDESwithCBC));
 	}
