@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.elasticsearch.common.collect.Lists;
+
+import com.google.common.collect.Lists;
 
 @XmlAccessorType(XmlAccessType.FIELD) //java对象生成xml文件时对java对象属性的访问方式
 @XmlType(propOrder = { "name", "interests" }) // 指定子节点的顺序
