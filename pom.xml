@@ -14,7 +14,7 @@
 		<org.aspectj-version>1.7.1</org.aspectj-version>
 		<org.slf4j-version>1.7.2</org.slf4j-version>
 		<org.apache.avro-version>1.7.7</org.apache.avro-version>
-		<org.apache.hadoop-version>2.5.2</org.apache.hadoop-version>
+		<org.apache.hadoop-version>2.6.0</org.apache.hadoop-version>
 	</properties>
 
 	<dependencies>
