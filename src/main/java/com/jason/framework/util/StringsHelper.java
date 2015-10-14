@@ -13,6 +13,15 @@ public final class StringsHelper {
 	private StringsHelper(){}
 	
 	/**
+	 * format
+	 * @param format
+	 * @param args
+	 * @return
+	 */
+	public static String  format(String format, String args){
+		return String.format(format, args);
+	}
+	/**
 	 * 文件名获取后缀名
 	 * @param filename
 	 * @return
@@ -130,6 +139,7 @@ public final class StringsHelper {
         }
         return sb.toString();
     }
+    
 	public static void main(String[] args) {
 		String name = "user_type";
 		String n = underlineToCamel(name);
