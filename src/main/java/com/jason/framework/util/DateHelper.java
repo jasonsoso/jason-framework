@@ -169,5 +169,10 @@ public class DateHelper {
 		return DateUtils.toCalendar(date);
     }
     
-    
+    /**
+	 * 得到当前日期字符串 格式（yyyy-MM-dd）
+	 */
+	public static String getDate() {
+		return formatDate(new Date(), YYYYMMDD);
+	}
 }
