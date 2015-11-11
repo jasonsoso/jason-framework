@@ -3,7 +3,8 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.jason.framework.domain.template.Template" alias="Template" />
- 		
+ 		<typeAlias type="com.jason.framework.generate.domain.Column" alias="Column" />
+ 		<!--<typeAlias type="com.jason.framework.sys.domain.Contact" alias="Contact" />-->
 	</typeAliases>
 	
 	<plugins>

@@ -1,55 +1,26 @@
-/**
- * There are <a href="https://github.com/thinkgem/jeesite">JeeSite</a> code generation
- */
 package ${packageName}.${moduleName}.service${subModuleName};
 
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
-import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.service.BaseService;
-import com.thinkgem.jeesite.common.utils.StringUtils;
-import ${packageName}.${moduleName}.entity${subModuleName}.${ClassName};
-import ${packageName}.${moduleName}.dao${subModuleName}.${ClassName}Dao;
+import com.jason.framework.orm.Page;
+import ${packageName}.${moduleName}.domain${subModuleName}.${ClassName};
 
 /**
- * ${functionName}Service
+ * ${functionName} 业务逻辑接口类
  * @author ${classAuthor}
- * @version ${classVersion}
+ * @date ${classVersion}
  */
-@Component
-@Transactional(readOnly = true)
-public class ${ClassName}Service extends BaseService {
+public interface ${ClassName}Service {
 
-	@Autowired
-	private ${ClassName}Dao ${className}Dao;
+	void update(${ClassName} entity);
+
+	void delete(${ClassName} entity);
+
+	void save(${ClassName} entity);
 	
-	public ${ClassName} get(String id) {
-		return ${className}Dao.get(id);
-	}
-	
-	public Page<${ClassName}> find(Page<${ClassName}> page, ${ClassName} ${className}) {
-		DetachedCriteria dc = ${className}Dao.createDetachedCriteria();
-		if (StringUtils.isNotEmpty(${className}.getName())){
-			dc.add(Restrictions.like("name", "%"+${className}.getName()+"%"));
-		}
-		dc.add(Restrictions.eq(${ClassName}.FIELD_DEL_FLAG, ${ClassName}.DEL_FLAG_NORMAL));
-		dc.addOrder(Order.desc("id"));
-		return ${className}Dao.find(page, dc);
-	}
-	
-	@Transactional(readOnly = false)
-	public void save(${ClassName} ${className}) {
-		${className}Dao.save(${className});
-	}
-	
-	@Transactional(readOnly = false)
-	public void delete(String id) {
-		${className}Dao.deleteById(id);
-	}
-	
+	${ClassName} get(Long id);
+
+	List<${ClassName}> query(Object object);
+
+	Page<${ClassName}> queryPage(Page<${ClassName}> page);
 }

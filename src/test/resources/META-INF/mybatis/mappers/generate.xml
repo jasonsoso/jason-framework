@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jason.framework.domain.generate">
+
+<resultMap type="Column" id="columnResult">
+	<result property="name" column="name"/>
+	<result property="dbtype" column="dbtype"/>
+	<result property="len" column="len"/>
+	<result property="scale" column="scale"/>
+	<result property="pkey" column="pkey"/>
+	<result property="extra" column="extra"/>
+	<result property="comment" column="comment"/>
+</resultMap>
+
+<select id="queryTable" resultMap="columnResult"  parameterType="java.util.Map">
+SELECT 
+  LOWER( column_name) name, 
+  data_type dbtype, 
+  IFNULL(character_maximum_length,numeric_precision) len, 
+  numeric_scale  scale, 
+  column_key pkey, 
+  extra extra, 
+  column_comment comment 
+FROM information_schema.columns 
+WHERE table_schema = #{dbSchema}
+    AND table_name = #{dbTable} 
+ORDER BY ordinal_position 
+
+</select>
+
+</mapper>

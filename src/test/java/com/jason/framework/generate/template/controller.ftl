@@ -1,86 +1,109 @@
-/**
- * There are <a href="https://github.com/thinkgem/jeesite">JeeSite</a> code generation
- */
 package ${packageName}.${moduleName}.web${subModuleName};
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.thinkgem.jeesite.common.config.Global;
-import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.web.BaseController;
-import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.modules.sys.entity.User;
-import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
-import ${packageName}.${moduleName}.entity${subModuleName}.${ClassName};
+import com.google.common.base.Objects;
+import com.jason.framework.domain.EntityUtils;
+import com.jason.framework.orm.Page;
+import com.jason.framework.web.support.ControllerSupport;
+import ${packageName}.${moduleName}.domain${subModuleName}.${ClassName};
 import ${packageName}.${moduleName}.service${subModuleName}.${ClassName}Service;
 
 /**
- * ${functionName}Controller
+ * ${functionName} 控制层
  * @author ${classAuthor}
- * @version ${classVersion}
+ * @date ${classVersion}
  */
 @Controller
-@RequestMapping(value = "${r"${adminPath}"}/${urlPrefix}")
-public class ${ClassName}Controller extends BaseController {
-
+@RequestMapping(value = "/${urlPrefix}")
+public class ${ClassName}Controller extends ControllerSupport {
+	
+	private static final String REDIRECT_LIST = "redirect:/${className}/list/";
+	private static final String FORM = "${className}/form";
+	private static final String LIST = "${className}/list";
+	
 	@Autowired
 	private ${ClassName}Service ${className}Service;
 	
-	@ModelAttribute
-	public ${ClassName} get(@RequestParam(required=false) String id) {
-		if (StringUtils.isNotBlank(id)){
-			return ${className}Service.get(id);
-		}else{
-			return new ${ClassName}();
+	
+	@RequestMapping(value = "/list/", method = GET)
+	public String list(Page<${ClassName}> page, Model model) {
+		
+		page.setOrderBy("id").setOrder(Page.DESC);
+		
+		page = ${className}Service.queryPage(page);
+		model.addAttribute("page",page);
+		return LIST;
+	}
+
+	@RequestMapping(value = "/create/", method = GET)
+	public String create(Model model) {
+		model.addAttribute(new ${ClassName}());
+		return FORM;
+	}
+
+	@RequestMapping(value = "/create/", method = POST)
+	public String create(@Valid ${ClassName} entity, BindingResult result,RedirectAttributes redirectAttributes) {
+		if (result.hasErrors()) {
+			error(redirectAttributes,"创建${functionName}失败，请核对数据后重试");
+			return REDIRECT_LIST;
 		}
+		${className}Service.save(entity);
+		success(redirectAttributes,"${functionName}创建成功");
+		return REDIRECT_LIST;
+	}
+
+	@RequestMapping(value = "/{id}/edit/", method = GET)
+	public String edit(@PathVariable("id") Long id, Model model) {
+		${ClassName} entity = ${className}Service.get(id);
+		model.addAttribute(entity).addAttribute("_method", "PUT");
+		return FORM;
+	}
+
+	@RequestMapping(value = "/{id}/edit/", method = PUT)
+	public String edit(@PathVariable("id") Long id, HttpServletRequest request,RedirectAttributes redirectAttributes) {
+		try {
+
+			${ClassName} entity = ${className}Service.get(id);
+			bind(request, entity);
+			Assert.isTrue(Objects.equal(id, entity.getId()), "编辑Id不相符");
+			
+			${className}Service.update(entity);
+			success(redirectAttributes,"${functionName}修改成功");
+		} catch (Exception e) {
+			error(redirectAttributes,"${functionName}修改失败，请核对数据重试",e);
+		}
+		return REDIRECT_LIST;
+	}
+
+	@RequestMapping(value = "/{id}/delete/", method = DELETE)
+	public String delete(@PathVariable("id") Long id) {
+		${className}Service.delete(${className}Service.get(id));
+		return REDIRECT_LIST;
+	}
+
+	@RequestMapping(value = "/delete/", method = DELETE)
+	public String delete(HttpServletRequest request) {
+		for (String item : EntityUtils.nullSafe(request.getParameterValues("items"), new String[] {})) {
+			delete(EntityUtils.toLong(item));
+		}
+		return REDIRECT_LIST;
 	}
 	
-	@RequiresPermissions("${permissionPrefix}:view")
-	@RequestMapping(value = {"list", ""})
-	public String list(${ClassName} ${className}, HttpServletRequest request, HttpServletResponse response, Model model) {
-		User user = UserUtils.getUser();
-		if (!user.isAdmin()){
-			${className}.setCreateBy(user);
-		}
-        Page<${ClassName}> page = ${className}Service.find(new Page<${ClassName}>(request, response), ${className}); 
-        model.addAttribute("page", page);
-		return "modules/" + "${viewPrefix}List";
-	}
-
-	@RequiresPermissions("${permissionPrefix}:view")
-	@RequestMapping(value = "form")
-	public String form(${ClassName} ${className}, Model model) {
-		model.addAttribute("${className}", ${className});
-		return "modules/" + "${viewPrefix}Form";
-	}
-
-	@RequiresPermissions("${permissionPrefix}:edit")
-	@RequestMapping(value = "save")
-	public String save(${ClassName} ${className}, Model model, RedirectAttributes redirectAttributes) {
-		if (!beanValidator(model, ${className})){
-			return form(${className}, model);
-		}
-		${className}Service.save(${className});
-		addMessage(redirectAttributes, "保存${functionName}'" + ${className}.getName() + "'成功");
-		return "redirect:"+Global.getAdminPath()+"/${viewPrefix}/?repage";
-	}
-	
-	@RequiresPermissions("${permissionPrefix}:edit")
-	@RequestMapping(value = "delete")
-	public String delete(String id, RedirectAttributes redirectAttributes) {
-		${className}Service.delete(id);
-		addMessage(redirectAttributes, "删除${functionName}成功");
-		return "redirect:"+Global.getAdminPath()+"/${viewPrefix}/?repage";
-	}
-
 }
