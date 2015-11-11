@@ -375,29 +375,6 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 		}
 
 	}
-
-
-
-	/**
-	 * 获取待压缩文件在ZIP文件中entry的名字，即相对于跟目录的相对路径名
-	 * @param dirPath 目录名
-	 * @param file entry文件名
-	 * @return
-	 */
-	private static String getEntryName(String dirPath, File file) {
-		String dirPaths = dirPath;
-		if (!dirPaths.endsWith(File.separator)) {
-			dirPaths = dirPaths + File.separator;
-		}
-		String filePath = file.getAbsolutePath();
-		// 对于目录，必须在entry名字后面加上"/"，表示它将以目录项存储
-		if (file.isDirectory()) {
-			filePath += "/";
-		}
-		int index = filePath.indexOf(dirPaths);
-
-		return filePath.substring(index + dirPaths.length());
-	}
 	
 	/**
 	 * 将内容写入文件
