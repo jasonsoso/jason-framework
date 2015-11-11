@@ -1,6 +1,5 @@
 package ${packageName}${moduleName}.web${subModuleName};
 
-
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;

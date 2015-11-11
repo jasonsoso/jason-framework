@@ -19,7 +19,6 @@ public class ${ClassName} extends MyBatisDomainObject{
 	</#if>
 	</#list>
 	
-	
 	<#list columns as columns>
 	<#if columns.name!="id">
 	public ${ClassName} set${columns.bigProperty}(${columns.jt} ${columns.property}) {

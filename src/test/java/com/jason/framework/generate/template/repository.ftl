@@ -10,6 +10,7 @@ import ${packageName}${moduleName}.domain${subModuleName}.${ClassName};
  * @date ${classVersion}
  */
 public interface ${ClassName}Repository {
+
 	${ClassName} get(Long id);
 
 	List<${ClassName}> query(Object object);

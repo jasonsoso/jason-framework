@@ -54,4 +54,5 @@ public class ${ClassName}ServiceImpl  implements ${ClassName}Service {
 		${className}Repository.save(entity);
 	}
 	
+	
 }
