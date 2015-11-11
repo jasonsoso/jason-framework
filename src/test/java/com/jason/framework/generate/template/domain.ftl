@@ -1,4 +1,4 @@
-package ${packageName}.${moduleName}.domain${subModuleName};
+package ${packageName}${moduleName}.domain${subModuleName};
 
 <#list setColumns as setColumns>
 import ${setColumns};

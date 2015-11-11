@@ -1,4 +1,4 @@
-package ${packageName}.${moduleName}.service.impl${subModuleName};
+package ${packageName}${moduleName}.service.impl${subModuleName};
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jason.framework.orm.Page;
-import ${packageName}.${moduleName}.domain${subModuleName}.${ClassName};
-import ${packageName}.${moduleName}.repository${subModuleName}.${ClassName}Repository;
-import ${packageName}.${moduleName}.service${subModuleName}.${ClassName}Service;
+import ${packageName}${moduleName}.domain${subModuleName}.${ClassName};
+import ${packageName}${moduleName}.repository${subModuleName}.${ClassName}Repository;
+import ${packageName}${moduleName}.service${subModuleName}.${ClassName}Service;
 
 
 /**

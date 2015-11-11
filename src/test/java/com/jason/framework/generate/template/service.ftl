@@ -1,9 +1,9 @@
-package ${packageName}.${moduleName}.service${subModuleName};
+package ${packageName}${moduleName}.service${subModuleName};
 
 import java.util.List;
 
 import com.jason.framework.orm.Page;
-import ${packageName}.${moduleName}.domain${subModuleName}.${ClassName};
+import ${packageName}${moduleName}.domain${subModuleName}.${ClassName};
 
 /**
  * ${functionName} 业务逻辑接口类

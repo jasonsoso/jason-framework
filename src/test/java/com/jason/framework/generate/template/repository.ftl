@@ -1,8 +1,8 @@
-package ${packageName}.${moduleName}.repository${subModuleName};
+package ${packageName}${moduleName}.repository${subModuleName};
 
 import java.util.List;
 import com.jason.framework.orm.Page;
-import ${packageName}.${moduleName}.domain${subModuleName}.${ClassName};
+import ${packageName}${moduleName}.domain${subModuleName}.${ClassName};
 
 /**
  * ${functionName} 持久层接口类

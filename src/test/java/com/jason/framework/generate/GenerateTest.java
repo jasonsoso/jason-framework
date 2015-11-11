@@ -57,7 +57,7 @@ public class GenerateTest extends MyBatisTestBase{
 	private static String subModuleName = PropertiesUtils.getEntryValue("generate.subModuleName");			// 子模块名（可选） 
 	private static String className = PropertiesUtils.getEntryValue("generate.className");			// 类名，例：user
 	private static String dbTable = PropertiesUtils.getEntryValue("generate.dbTable");			// 表名，例：user
-	private static String classAuthor = PropertiesUtils.getEntryValue("generate.classAuthor");		// 类作者，例：ThinkGem
+	private static String classAuthor = PropertiesUtils.getEntryValue("generate.classAuthor");		// 类作者，例：Jason
 	private static String functionName = PropertiesUtils.getEntryValue("generate.functionName");			// 功能名，例：用户
 
 	
@@ -67,9 +67,8 @@ public class GenerateTest extends MyBatisTestBase{
 	@Test
 	public void generate() throws IOException {
 		
-		if (StringUtils.isBlank(moduleName) || StringUtils.isBlank(moduleName) 
-				|| StringUtils.isBlank(className) || StringUtils.isBlank(functionName)){
-			logger.error("参数设置错误：包名、模块名、类名、功能名不能为空。");
+		if (StringUtils.isBlank(packageName)|| StringUtils.isBlank(className) || StringUtils.isBlank(functionName)){
+			logger.error("参数设置错误：包名、类名、功能名不能为空。");
 			return;
 		}
 		
@@ -88,17 +87,21 @@ public class GenerateTest extends MyBatisTestBase{
 		logger.info("Template Path: {}", tplPath);
 		
 		// Java文件路径
-		String javaPath = StringUtils.replaceEach(projectPath+"/src/main/java/"+StringUtils.lowerCase(packageName), 
+		String javaPath = StringUtils.replaceEach(projectPath+"/out/src/main/java/"+StringUtils.lowerCase(packageName), 
 				new String[]{"/", "."}, new String[]{separator, separator});
 		logger.info("Java Path: {}", javaPath);
 		
 		// Mybatis 映射文件路径
-		String xmlPath = StringUtils.replace(projectPath+"/src/test/resources/META-INF/mybatis/mappers", "/", separator);
+		String xmlPath = StringUtils.replace(projectPath+"/out/src/main/resources/META-INF/mybatis", "/", separator);
 		logger.info("Mybatis Xml Path: {}", xmlPath);
 		
 		// 视图文件路径
-		String viewPath = StringUtils.replace(projectPath+"/src/main/webapp/WEB-INF/views", "/", separator);
+		String viewPath = StringUtils.replace(projectPath+"/out/src/main/webapp/WEB-INF/views", "/", separator);
 		logger.info("View Path: {}", viewPath);
+		
+		//moduleName路径
+		String formatPathModuleName = StringUtils.isNotBlank(moduleName)?"/"+StringUtils.lowerCase(moduleName):"";
+		String formatPackageModuleName = StringUtils.isNotBlank(moduleName)?"."+StringUtils.lowerCase(moduleName):"";
 		
 		// 代码模板配置
 		Configuration cfg = new Configuration();
@@ -108,7 +111,7 @@ public class GenerateTest extends MyBatisTestBase{
 		// 定义模板变量
 		Map<String, Object> model = Maps.newHashMap();
 		model.put("packageName", StringUtils.lowerCase(packageName));
-		model.put("moduleName", StringUtils.lowerCase(moduleName));
+		model.put("moduleName", formatPackageModuleName);
 		model.put("subModuleName", StringUtils.isNotBlank(subModuleName)?"."+StringUtils.lowerCase(subModuleName):"");
 		model.put("className", StringUtils.uncapitalize(className));
 		model.put("ClassName", StringUtils.capitalize(className));
@@ -116,17 +119,16 @@ public class GenerateTest extends MyBatisTestBase{
 		model.put("classAuthor", StringUtils.isNotBlank(classAuthor)?classAuthor:"Generate Tools");
 		model.put("classVersion", DateHelper.getDate());
 		model.put("functionName", functionName);
-		model.put("tableName", model.get("moduleName")+(StringUtils.isNotBlank(subModuleName)
-				?"_"+StringUtils.lowerCase(subModuleName):"")+"_"+model.get("className"));
-		model.put("urlPrefix", model.get("moduleName")+(StringUtils.isNotBlank(subModuleName)
+		//model.put("tableName", model.get("moduleName")+(StringUtils.isNotBlank(subModuleName)
+		//		?"_"+StringUtils.lowerCase(subModuleName):"")+"_"+model.get("className"));
+		
+		model.put("urlPrefix", formatPathModuleName+(StringUtils.isNotBlank(subModuleName)
 				?"/"+StringUtils.lowerCase(subModuleName):"")+"/"+model.get("className"));
-		model.put("viewPrefix", //StringUtils.substringAfterLast(model.get("packageName"),".")+"/"+
-				model.get("urlPrefix"));
-		model.put("permissionPrefix", model.get("moduleName")+(StringUtils.isNotBlank(subModuleName)
-				?":"+StringUtils.lowerCase(subModuleName):"")+":"+model.get("className"));
+		//model.put("viewPrefix", //StringUtils.substringAfterLast(model.get("packageName"),".")+"/"+
+		//		model.get("urlPrefix"));
+		//model.put("permissionPrefix", model.get("moduleName")+(StringUtils.isNotBlank(subModuleName)
+		//		?":"+StringUtils.lowerCase(subModuleName):"")+":"+model.get("className"));
 
-		// 生成 domain
-		Template template = cfg.getTemplate("domain.ftl");
 		//读取数据库 并组装参数
 		List<Column> columns = generateService.queryTable();
 		List<Column> newColumns = new ArrayList<Column>();
@@ -136,12 +138,14 @@ public class GenerateTest extends MyBatisTestBase{
 			if(StringUtils.indexOf(column.getJavatype(), ".")!=-1){
 				setColumns.add(column.getJavatype());
 			}
-			
 		}
 		model.put("setColumns", setColumns);
 		model.put("columns", newColumns);
+		
+		// 生成 domain
+		Template template = cfg.getTemplate("domain.ftl");
 		String content = FreeMarkers.renderTemplate(template, model);
-		String filePath = javaPath+separator+model.get("moduleName")+separator+"domain"
+		String filePath = javaPath+formatPathModuleName+separator+"domain"
 				+separator+StringUtils.lowerCase(subModuleName)+separator+model.get("ClassName")+".java";
 		writeFile(content, filePath);
 		logger.info("Domain: {}", filePath);
@@ -149,7 +153,7 @@ public class GenerateTest extends MyBatisTestBase{
 		// 生成 repository接口类
 		template = cfg.getTemplate("repository.ftl");
 		content = FreeMarkers.renderTemplate(template, model);
-		filePath = javaPath+separator+model.get("moduleName")+separator+"repository"+separator
+		filePath = javaPath+formatPathModuleName+separator+"repository"+separator
 				+StringUtils.lowerCase(subModuleName)+separator+model.get("ClassName")+"Repository.java";
 		writeFile(content, filePath);
 		logger.info("Repository: {}", filePath);
@@ -157,7 +161,7 @@ public class GenerateTest extends MyBatisTestBase{
 		// 生成 repository实现类
 		template = cfg.getTemplate("repositoryImpl.ftl");
 		content = FreeMarkers.renderTemplate(template, model);
-		filePath = javaPath+separator+model.get("moduleName")+separator+"repository"+separator
+		filePath = javaPath+formatPathModuleName+separator+"repository"+separator
 				+StringUtils.lowerCase(subModuleName)+separator+"impl"+separator+model.get("ClassName")+"RepositoryImpl.java";
 		writeFile(content, filePath);
 		logger.info("Repository: {}", filePath);
@@ -165,7 +169,7 @@ public class GenerateTest extends MyBatisTestBase{
 		// 生成 Service接口
 		template = cfg.getTemplate("service.ftl");
 		content = FreeMarkers.renderTemplate(template, model);
-		filePath = javaPath+separator+model.get("moduleName")+separator+"service"+separator
+		filePath = javaPath+formatPathModuleName+separator+"service"+separator
 				+StringUtils.lowerCase(subModuleName)+separator+model.get("ClassName")+"Service.java";
 		writeFile(content, filePath);
 		logger.info("Service: {}", filePath);
@@ -173,7 +177,7 @@ public class GenerateTest extends MyBatisTestBase{
 		// 生成 Service实现类
 		template = cfg.getTemplate("serviceImpl.ftl");
 		content = FreeMarkers.renderTemplate(template, model);
-		filePath = javaPath+separator+model.get("moduleName")+separator+"service"+separator
+		filePath = javaPath+formatPathModuleName+separator+"service"+separator
 				+StringUtils.lowerCase(subModuleName)+separator+"impl"+separator+model.get("ClassName")+"ServiceImpl.java";
 		writeFile(content, filePath);
 		logger.info("Service: {}", filePath);
@@ -182,7 +186,7 @@ public class GenerateTest extends MyBatisTestBase{
 		// 生成 Controller
 		template = cfg.getTemplate("controller.ftl");
 		content = FreeMarkers.renderTemplate(template, model);
-		filePath = javaPath+separator+model.get("moduleName")+separator+"web"+separator
+		filePath = javaPath+formatPathModuleName+separator+"web"+separator
 				+StringUtils.lowerCase(subModuleName)+separator+model.get("ClassName")+"Controller.java";
 		writeFile(content, filePath);
 		logger.info("Controller: {}", filePath);
@@ -191,15 +195,14 @@ public class GenerateTest extends MyBatisTestBase{
 		template = cfg.getTemplate("mapping.ftl");
 		content = FreeMarkers.renderTemplate(template, model);
 		filePath = xmlPath+separator
-				+separator+model.get("moduleName")
-				+separator+model.get("className")+"Mapping.xml";
+				+separator+formatPathModuleName+separator+model.get("className")+"Mapper.xml";
 		writeFile(content, filePath);
 		logger.info("Mybatis Xml映射文件: {}", filePath);
 		
 		// 生成 ViewForm
 		template = cfg.getTemplate("viewForm.ftl");
 		content = FreeMarkers.renderTemplate(template, model);
-		filePath = viewPath+separator+model.get("moduleName")+separator+StringUtils.lowerCase(subModuleName)
+		filePath = viewPath+formatPathModuleName+separator+StringUtils.lowerCase(subModuleName)
 				+separator+model.get("className")+separator+"form.jsp";
 		writeFile(content, filePath);
 		logger.info("ViewForm: {}", filePath);
@@ -207,7 +210,7 @@ public class GenerateTest extends MyBatisTestBase{
 		// 生成 ViewList
 		template = cfg.getTemplate("viewList.ftl");
 		content = FreeMarkers.renderTemplate(template, model);
-		filePath = viewPath+separator+model.get("moduleName")+separator+StringUtils.lowerCase(subModuleName)
+		filePath = viewPath+formatPathModuleName+separator+StringUtils.lowerCase(subModuleName)
 		+separator+model.get("className")+separator+"list.jsp";
 		writeFile(content, filePath);
 		logger.info("ViewList: {}", filePath);

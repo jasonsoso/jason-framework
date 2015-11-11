@@ -57,7 +57,7 @@
 			$(function(){
 				$("#form").validate(); 
 				$("#back").click(function(){
-					location.href = "${r"${ctx}"}/${urlPrefix}/list/";
+					location.href = "${r"${ctx}"}${urlPrefix}/list/";
 				});
 			});
 		</script>

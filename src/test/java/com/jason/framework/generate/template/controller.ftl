@@ -1,4 +1,4 @@
-package ${packageName}.${moduleName}.web${subModuleName};
+package ${packageName}${moduleName}.web${subModuleName};
 
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
@@ -22,8 +22,8 @@ import com.google.common.base.Objects;
 import com.jason.framework.domain.EntityUtils;
 import com.jason.framework.orm.Page;
 import com.jason.framework.web.support.ControllerSupport;
-import ${packageName}.${moduleName}.domain${subModuleName}.${ClassName};
-import ${packageName}.${moduleName}.service${subModuleName}.${ClassName}Service;
+import ${packageName}${moduleName}.domain${subModuleName}.${ClassName};
+import ${packageName}${moduleName}.service${subModuleName}.${ClassName}Service;
 
 /**
  * ${functionName} 控制层
@@ -31,7 +31,7 @@ import ${packageName}.${moduleName}.service${subModuleName}.${ClassName}Service;
  * @date ${classVersion}
  */
 @Controller
-@RequestMapping(value = "/${urlPrefix}")
+@RequestMapping(value = "${urlPrefix}")
 public class ${ClassName}Controller extends ControllerSupport {
 	
 	private static final String REDIRECT_LIST = "redirect:/${className}/list/";

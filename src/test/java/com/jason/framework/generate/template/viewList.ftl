@@ -17,7 +17,7 @@
 		<div id="container">
 			<%@include file="/common/left.jsp" %>
 			<div id="main-content">
-			<form id="myForm" action="${r"${ctx}"}/${urlPrefix}/list/" method="get">
+			<form id="myForm" action="${r"${ctx}"}${urlPrefix}/list/" method="get">
 				<h3 class="page-title">${functionName}管理</h3>
 				<div class="title-line"></div>
 				<div class="cl"></div>
@@ -69,7 +69,7 @@
 												</#if>
 												</#list>
 											    <td>
-													<a href="${r"${ctx}"}/${urlPrefix}/${r"${"}${className}${r".id}"}/edit/"  class="do-btn edit-btn"><span>编辑</span></a>
+													<a href="${r"${ctx}"}${urlPrefix}/${r"${"}${className}${r".id}"}/edit/"  class="do-btn edit-btn"><span>编辑</span></a>
 											    </td>
 										  	</tr>
 										  	</c:forEach>
@@ -128,7 +128,7 @@
 			}
 			if(confirm("你确定要删除这些内容吗?")){
 				$('input[name="_method"]').remove();
-				$("#myForm").attr("action", "${r"${ctx}"}/${urlPrefix}/delete/")
+				$("#myForm").attr("action", "${r"${ctx}"}${urlPrefix}/delete/")
 							.attr("method","post")
 							.append('<input type="hidden" name="_method" value="DELETE" />')
 							.submit();
@@ -136,7 +136,7 @@
 			}
 		});
 		$("#add").click(function(){
-			location.href = "${r"${ctx}"}/${urlPrefix}/create/";
+			location.href = "${r"${ctx}"}${urlPrefix}/create/";
 		});
 	});
 </script>
