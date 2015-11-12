@@ -1,4 +1,4 @@
-package ${packageName}${moduleName}.repository.impl${subModuleName};
+package ${packageName}${moduleName}.repository${subModuleName}.impl;
 
 import org.springframework.stereotype.Repository;
 

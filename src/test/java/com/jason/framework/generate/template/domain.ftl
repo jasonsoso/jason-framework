@@ -15,7 +15,7 @@ public class ${ClassName} extends MyBatisDomainObject{
 	
 	<#list columns as columns>
 	<#if columns.name!="id">
-	private ${columns.jt} ${columns.property};
+	private ${columns.jt} ${columns.property};	//${columns.comment}
 	</#if>
 	</#list>
 	

@@ -102,6 +102,10 @@ public class GenerateTest extends MyBatisTestBase{
 		String formatPathModuleName = StringUtils.isNotBlank(moduleName)?"/"+StringUtils.lowerCase(moduleName):"";
 		String formatPackageModuleName = StringUtils.isNotBlank(moduleName)?"."+StringUtils.lowerCase(moduleName):"";
 		
+		String formatPackageSubModuleName = StringUtils.isNotBlank(subModuleName)?"."+StringUtils.lowerCase(subModuleName):"";
+		String formatPathSubModuleName = StringUtils.isNotBlank(subModuleName)?"/"+StringUtils.lowerCase(subModuleName):"";
+		String formatPathSubModuleName2 = StringUtils.isNotBlank(subModuleName)?StringUtils.lowerCase(subModuleName)+"/":"";
+		
 		// 代码模板配置
 		Configuration cfg = new Configuration();
 		cfg.setDefaultEncoding("UTF-8");
@@ -111,7 +115,9 @@ public class GenerateTest extends MyBatisTestBase{
 		Map<String, Object> model = Maps.newHashMap();
 		model.put("packageName", StringUtils.lowerCase(packageName));
 		model.put("moduleName", formatPackageModuleName);
-		model.put("subModuleName", StringUtils.isNotBlank(subModuleName)?"."+StringUtils.lowerCase(subModuleName):"");
+		model.put("subModuleName", formatPackageSubModuleName);
+		model.put("formatPathSubModuleName", formatPathSubModuleName);
+		model.put("formatPathSubModuleName2", formatPathSubModuleName2);
 		model.put("className", StringUtils.uncapitalize(className));
 		model.put("ClassName", StringUtils.capitalize(className));
 		model.put("dbTable", StringUtils.lowerCase(dbTable));
@@ -194,7 +200,9 @@ public class GenerateTest extends MyBatisTestBase{
 		template = cfg.getTemplate("mapping.ftl");
 		content = FreeMarkers.renderTemplate(template, model);
 		filePath = xmlPath+separator
-				+separator+formatPathModuleName+separator+model.get("className")+"Mapper.xml";
+				+separator+formatPathModuleName+
+				separator+StringUtils.lowerCase(subModuleName)+
+				separator+model.get("className")+"Mapper.xml";
 		writeFile(content, filePath);
 		logger.info("Mybatis Xml映射文件: {}", filePath);
 		

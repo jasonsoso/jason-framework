@@ -1,4 +1,4 @@
-package ${packageName}${moduleName}.service.impl${subModuleName};
+package ${packageName}${moduleName}.service${subModuleName}.impl;
 
 import java.util.List;
 

@@ -75,7 +75,7 @@
 										  	</c:forEach>
 									  	</c:when>
 									  	<c:otherwise>
-											<tr><td colspan="4" align="center"><b>暂无内容</b></td></tr>
+											<tr><td colspan="${columns?size+1}" align="center"><b>暂无内容</b></td></tr>
 									  	</c:otherwise>
 									  </c:choose>
 									  

@@ -33,9 +33,9 @@ import ${packageName}${moduleName}.service${subModuleName}.${ClassName}Service;
 @RequestMapping(value = "${urlPrefix}")
 public class ${ClassName}Controller extends ControllerSupport {
 	
-	private static final String REDIRECT_LIST = "redirect:/${className}/list/";
-	private static final String FORM = "${className}/form";
-	private static final String LIST = "${className}/list";
+	private static final String REDIRECT_LIST = "redirect:${formatPathSubModuleName}/${className}/list/";
+	private static final String FORM = "${formatPathSubModuleName2}${className}/form";
+	private static final String LIST = "${formatPathSubModuleName2}${className}/list";
 	
 	@Autowired
 	private ${ClassName}Service ${className}Service;
