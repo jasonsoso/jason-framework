@@ -3,45 +3,53 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>${functionName}管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <%@include file="/common/taglibs.jsp" %>
 <%@include file="/common/common-header.jsp" %>
-<link rel="stylesheet" type="text/css" href="${r"${ctx}"}/resources/css/style.css"/>
-<script src="${r"${ctx}"}/resources/js/admin.js" type="text/javascript"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 </head>
 <body>
-<!-- Header Start -->
-		<%@include file="/common/header.jsp" %>
-		<!-- Header End -->
 		<!-- Container Start -->
 		<div id="container">
+			<!-- Header Start -->
+			<%@include file="/common/header.jsp" %>
+			<!-- Header End -->
+			<!-- Sidebar Start -->
 			<%@include file="/common/left.jsp" %>
-			<div id="main-content">
+			<!-- Sidebar End-->
+			
+			<div id="main">
 			
 				<form:form method="post" modelAttribute="${className}" id="form">
 				<input type="hidden" name="_method" value="${r"${_method }"}" />
-
-				<h3 class="page-title">${functionName}管理</h3>
-				<div class="title-line"></div>
-				<div class="databox">
-					<div class="databox-title">${functionName}管理&nbsp;（所有带有<span class="red" style="color: red;" >*</span>为必填项）</div>
-					<div class="databox-body">
-						<div class="changepwd formbox">
+				
+				<div class="main-inner">
+					<div class="main-title">
+						<div class="main-title-l fl"><h3 class="fl">第一菜单><c:if test="${r"${_method=='PUT'}"}">修改</c:if><c:if test="${r"${_method!='PUT'}"}">添加</c:if>分类
+						</h3></div>
+						<!-- <div class="main-title-r fr"><a href="account.html" class="back-btn">返回</a></div> -->
+					</div>
+					<div class="main-cont">
+						<div class="block">
 							<#list columns as columns>
 							<#if columns.name!="id">
-							<div class="form-group">
-								<span class="form-title">${columns.comment}：</span>
-								<form:input path="${columns.property}" cssClass="required ipt ipt-size1" />
-								<!--<span class="red" style="color: red;" >*</span>-->
+							<div class="control-group">
+								<span class="control-label">${columns.comment}：</span>
+								<div class="controls">
+	                                <form:input path="${columns.property}" cssClass="required ipt ipt-size1" />
+	                            </div>
 							</div>
 							</#if>
 							</#list>
-							
-							<input id="ok" type="submit" value="提交" class="btn" />&nbsp;
-							<input id="back" type="button" value="返回" class="btn"/>
+	                        
+	                        <div class="control-group op-menu">
+								<input id="ok" type="submit" value="提交" class="btn" />&nbsp;
+								<input id="back" type="button" value="返回" class="btn"/>
+	                        </div>
 						</div>
 					</div>
 				</div>
+				
 				</form:form>
 				
 			</div>	
@@ -55,6 +63,10 @@
 		
 		<script type="text/javascript">
 			$(function(){
+				//选择左边菜单
+				$("#${className}_manage").addClass("active open");
+				$("#${className}_list").addClass("select");
+		
 				$("#form").validate(); 
 				$("#back").click(function(){
 					location.href = "${r"${ctx}"}${urlPrefix}/list/";

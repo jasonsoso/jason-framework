@@ -3,48 +3,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>${functionName}管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <%@include file="/common/taglibs.jsp" %>
 <%@include file="/common/common-header.jsp" %>
-<link rel="stylesheet" type="text/css" href="${r"${ctx}"}/resources/css/style.css" />
-<script src="${r"${ctx}"}/resources/js/admin.js" type="text/javascript"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 </head>
 <body>
+<!-- Container Start -->
+		<div id="container">
 		<!-- Header Start -->
 		<%@include file="/common/header.jsp" %>
 		<!-- Header End -->
-		<!-- Container Start -->
-		<div id="container">
-			<%@include file="/common/left.jsp" %>
-			<div id="main-content">
+		<!-- Sidebar Start -->
+		<%@include file="/common/left.jsp" %>
+		<!-- Sidebar End-->
+		<div id="main">
 			<form id="myForm" action="${r"${ctx}"}${urlPrefix}/list/" method="get">
-				<h3 class="page-title">${functionName}管理</h3>
-				<div class="title-line"></div>
-				<div class="cl"></div>
-				<div class="searchbar">
-					<div class="search-group fl">
-						<span>关键词：</span>
-						<input class="ipt ipt-size1" name="params[name]" value="${r"${page.params.name }"}" type="text" />
+			
+				<div class="main-inner">
+					<div class="main-title">
+						<div class="main-title-l fl"><h3 class="fl">一级菜单>${functionName}管理</h3></div>
+						<div class="main-title-r fr"><a id="add" href="javascript:void(0);" class="add-btn">添加${functionName}</a></div>
 					</div>
-					<div class="search-group fl">
-						<input class="btn" type="button" onclick="javascript:health.search();" value="查询" />
-					</div>
-				</div>
-
-				<div class="class-info">
-					<div class="databox">
-						<div class="databox-title">${functionName}管理&nbsp;
-						
-						</div>
-						<div class="databox-body">
-							<div class="searchbar mar2">
-								<input class="btn" id="add" type="button" value="新增" />
-								<input class="btn" id="del" type="button" value="删除" />
+					<div class="main-cont">
+						<div class="search-bar">
+							<div class="search-group fl">
+								<span>名称：</span>
+								<input class="ipt ipt-size1" name="params[name]" value="${r"${page.params.name }"}" type="text" />
 							</div>
-							<table class="table table-bordered">
+		                    <div class="search-group fl">
+								<input class="btn" type="button" onclick="javascript:health.search();" value="搜索" />
+							</div>
+						</div>
+						<div class="search-result">
+							<table class="table result-table">
+								<colgroup>
+									<col/>
+									<col/>
+									<col/>
+									<col/>
+								</colgroup>
 								<thead>
 									<tr class="titletr">
-										<th class="checktd"><div class="checker"><span><input type="checkbox"  id="selectAndUnselect" class="group-checkable checkboxes" value="1"/></span></div></th>
+										<th class="checktd">
+											<div class="checker"><span><input name="items"  id="selectAndUnselect" type="checkbox" class="group-checkable" /></span></div>
+										</th>
 										<#list columns as columns>
 										<#if columns.name!="id">
 										<th>${columns.comment}</th>
@@ -54,10 +57,10 @@
 									</tr>	
 								</thead>
 								<tbody>
-									  <c:choose>
+									<c:choose>
 									  	<c:when test="${r"${not empty page.result}"}">
 										  	<c:forEach items="${r"${page.result }"}" var="${className}">
-										  	<tr class="even">
+										  	<tr>
 											    <td class="checktd">
 											    	<div class="checker">
 											    	<span><input type="checkbox" name="items" id="checkbox" value="${r"${"}${className}${r".id}"}" class="group-checkable" /></span>
@@ -68,8 +71,8 @@
 												<td>${r"${"}${className}.${columns.property}${r"}"}</td>
 												</#if>
 												</#list>
-											    <td>
-													<a href="${r"${ctx}"}${urlPrefix}/${r"${"}${className}${r".id}"}/edit/"  class="do-btn edit-btn"><span>编辑</span></a>
+											    <td  class="do-menu">
+													<a href="${r"${ctx}"}${urlPrefix}/${r"${"}${className}${r".id}"}/edit/"  class="modify-btn"><span>编辑</span></a>
 											    </td>
 										  	</tr>
 										  	</c:forEach>
@@ -81,11 +84,11 @@
 									  
 								</tbody>
 							</table>
+						</div>
 							<!-- Page Start-->
 							<jsp:include page="/common/page.jsp" />
 						</div>
 					</div>
-				</div>
 				</form>
 			</div>	
 		</div>
@@ -95,6 +98,10 @@
 		<!-- Footer End -->
 <script type="text/javascript">
 	$(function(){
+		//选择左边菜单
+		$("#${className}_manage").addClass("active open");
+		$("#${className}_list").addClass("select");
+		
 		//提示信息：
 		var type = "${r"${message.type}"}";
 		var text = "${r"${message.text}"}";
