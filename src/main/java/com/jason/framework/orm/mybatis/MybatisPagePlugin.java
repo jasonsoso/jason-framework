@@ -65,6 +65,9 @@ public class MybatisPagePlugin implements Interceptor {
 
 		// paramObject instanceOf page,we intercept it.
 		Page<?> page = (Page<?>) paramObject;
+		if(!page.isAutoCount()){
+			return;
+		}
 
 		// create count sql
 		String countSql = PageHelper.buildCountSQL(boundSql.getSql());
