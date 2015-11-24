@@ -73,6 +73,8 @@
 												</#list>
 											    <td  class="do-menu">
 													<a href="${r"${ctx}"}${urlPrefix}/${r"${"}${className}${r".id}"}/edit/"  class="modify-btn"><span>编辑</span></a>
+													<span class="line">|</span>
+													<a href="javascript:del(${r"${"}${className}${r".id}"});" class="del-btn">删除</a>
 											    </td>
 										  	</tr>
 										  	</c:forEach>
@@ -146,6 +148,16 @@
 			location.href = "${r"${ctx}"}${urlPrefix}/create/";
 		});
 	});
+	function del(id){
+		if(confirm("你确定要删除吗?")){
+			$('input[name="_method"]').remove();
+			$("#myForm").attr("action", "${r"${ctx}"}${urlPrefix}/"+id+"/delete/")
+						.attr("method","post")
+						.append('<input type="hidden" name="_method" value="DELETE" />')
+						.submit();
+			return false;
+		}
+	}
 </script>
 
 </body>

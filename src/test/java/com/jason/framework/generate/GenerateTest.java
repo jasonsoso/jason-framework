@@ -44,27 +44,29 @@ public class GenerateTest extends MyBatisTestBase{
 	private GenerateService generateService;
 	
 
-	// ========== ↓↓↓↓↓↓ 执行前请修改参数，谨慎执行。↓↓↓↓↓↓ ====================
-
-	// 主要提供基本功能模块代码生成。
-	// 目录生成结构：{packageName}/{moduleName}/{repository,domain,service,web}/{subModuleName}/{className}
-	
-	// packageName 包名，这里如果更改包名，请在applicationContext.xml和srping-mvc.xml中配置base-package、packagesToScan属性，来指定多个（共4处需要修改）。
-	private static String packageName = PropertiesUtils.getEntryValue("generate.packageName");// "com.jason.framework";
-	
-	private static String moduleName = PropertiesUtils.getEntryValue("generate.moduleName");			// 模块名，例：sys
-	private static String subModuleName = PropertiesUtils.getEntryValue("generate.subModuleName");			// 子模块名（可选） 
-	private static String className = PropertiesUtils.getEntryValue("generate.className");			// 类名，例：user
-	private static String dbTable = PropertiesUtils.getEntryValue("generate.dbTable");			// 表名，例：user
-	private static String classAuthor = PropertiesUtils.getEntryValue("generate.classAuthor");		// 类作者，例：Jason
-	private static String functionName = PropertiesUtils.getEntryValue("generate.functionName");			// 功能名，例：用户
-
-	
-	// ========== ↑↑↑↑↑↑ 执行前请修改参数，谨慎执行。↑↑↑↑↑↑ ====================
-	
 	
 	@Test
 	public void generate() throws IOException {
+		
+		
+		// ========== ↓↓↓↓↓↓ 执行前请修改参数，谨慎执行。↓↓↓↓↓↓ ====================
+
+		// 主要提供基本功能模块代码生成。
+		// 目录生成结构：{packageName}/{moduleName}/{repository,domain,service,web}/{subModuleName}/{className}
+		
+		// packageName 包名，这里如果更改包名，请在applicationContext.xml和srping-mvc.xml中配置base-package、packagesToScan属性，来指定多个（共4处需要修改）。
+		String packageName = PropertiesUtils.getEntryValue("generate.packageName");// "com.jason.framework";
+		
+		String moduleName = PropertiesUtils.getEntryValue("generate.moduleName");			// 模块名，例：sys
+		String subModuleName = PropertiesUtils.getEntryValue("generate.subModuleName");			// 子模块名（可选） 
+		String className = PropertiesUtils.getEntryValue("generate.className");			// 类名，例：user
+		String dbTable = PropertiesUtils.getEntryValue("generate.dbTable");			// 表名，例：user
+		String classAuthor = PropertiesUtils.getEntryValue("generate.classAuthor");		// 类作者，例：Jason
+		String functionName = PropertiesUtils.getEntryValue("generate.functionName");			// 功能名，例：用户
+
+		
+		// ========== ↑↑↑↑↑↑ 执行前请修改参数，谨慎执行。↑↑↑↑↑↑ ====================
+		
 		
 		if (StringUtils.isBlank(packageName)|| StringUtils.isBlank(className) || StringUtils.isBlank(functionName)){
 			logger.error("参数设置错误：包名、类名、功能名不能为空。");

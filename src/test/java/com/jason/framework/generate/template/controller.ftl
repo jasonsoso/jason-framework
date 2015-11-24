@@ -92,16 +92,18 @@ public class ${ClassName}Controller extends ControllerSupport {
 	}
 
 	@RequestMapping(value = "/{id}/delete/", method = DELETE)
-	public String delete(@PathVariable("id") Long id) {
+	public String delete(@PathVariable("id") Long id,RedirectAttributes redirectAttributes) {
 		${className}Service.delete(${className}Service.get(id));
+		success(redirectAttributes,"${functionName}删除成功");
 		return REDIRECT_LIST;
 	}
 
 	@RequestMapping(value = "/delete/", method = DELETE)
-	public String delete(HttpServletRequest request) {
+	public String delete(HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		for (String item : EntityUtils.nullSafe(request.getParameterValues("items"), new String[] {})) {
-			delete(EntityUtils.toLong(item));
+			${className}Service.delete(${className}Service.get(EntityUtils.toLong(item)));
 		}
+		success(redirectAttributes,"${functionName}删除成功");
 		return REDIRECT_LIST;
 	}
 	
