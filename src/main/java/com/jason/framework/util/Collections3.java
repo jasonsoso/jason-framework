@@ -37,6 +37,22 @@ public class Collections3 {
 
 		return map;
 	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static Map extractToMap(final Collection collection,
+			final String keyPropertyName) {
+		Map map = new HashMap(collection.size());
+
+		try {
+			for (Object obj : collection) {
+				map.put(PropertyUtils.getProperty(obj, keyPropertyName),obj);
+			}
+		} catch (Exception e) {
+			throw ReflectionUtils.convertReflectionExceptionToUnchecked(e);
+		}
+
+		return map;
+	}
 
 	/**
 	 * 提取集合中的对象的一个属性(通过Getter函数), 组合成List.
