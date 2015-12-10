@@ -2,7 +2,8 @@ package com.jason.framework.generate.util;
 
 import java.util.HashMap;
 
-import com.sun.xml.internal.ws.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
+
 
 public class Utils {
 	
@@ -13,7 +14,7 @@ public class Utils {
 		String[] strings = name.split("_");
 		StringBuilder strBuff = new StringBuilder();
 		if (strings.length > 0){
-			strBuff.append(StringUtils.decapitalize(strings[0]));
+			strBuff.append(StringUtils.uncapitalize(strings[0]));
 		}
 		for (int i = 1; i < strings.length; i++) {
 			strBuff.append(StringUtils.capitalize(strings[i]));
