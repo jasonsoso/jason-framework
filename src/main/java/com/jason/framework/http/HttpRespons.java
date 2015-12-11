@@ -1,6 +1,7 @@
 package com.jason.framework.http;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Map;
 
 import org.apache.http.Header;
@@ -133,9 +134,20 @@ public class HttpRespons {
     	
         HttpEntity entity =  apacheHttpResponse.getEntity();
         try{
-            String content = EntityUtils.toString(entity, HttpConstants.DEFAULT_CHARSET); 
-            
-            ContentType contentType = ContentType.getOrDefault(entity);
+        	//处理编码问题
+        	ContentType contentType = ContentType.getOrDefault(entity);
+            Charset charset = contentType.getCharset();
+            if (charset == null) {
+                charset = Charset.forName(HttpConstants.DEFAULT_CHARSET);
+            }
+            if(charset.equals(Charset.forName(HttpConstants.DEFAULT_CHARSET))){
+            	content = EntityUtils.toString(entity,HttpConstants.DEFAULT_CHARSET);
+            }else if(charset.equals(Charset.forName(HttpConstants.ISO_8859_1))){
+            	content = EntityUtils.toString(entity,HttpConstants.DEFAULT_CHARSET);
+            	content = new String(content.getBytes(HttpConstants.ISO_8859_1),HttpConstants.DEFAULT_CHARSET);
+            }else{
+            	content = EntityUtils.toString(entity,HttpConstants.DEFAULT_CHARSET);
+            }
             
             this.setHeaders(apacheHttpResponse.getAllHeaders());
             if(entity.getContentType()!=null){

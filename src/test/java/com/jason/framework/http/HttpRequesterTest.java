@@ -1,7 +1,5 @@
 package com.jason.framework.http;
 
-import hk.cloudcall.tools.EncryptTool;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +50,7 @@ public class HttpRequesterTest {
 		jsonObject.put("pageNo", 1);
 		jsonObject.put("pageSize", 10);
         
-        HttpRespons httpRespons4 =  HttpRequester.sendBinary("http://localhost:8080/Auth_WeLove" + "/account/getAllUserInfo.do", jsonObject.toString());
+        HttpRespons httpRespons4 =  HttpRequester.sendBinary("https://localhost:8443/Auth_WeLove" + "/account/getAllUserInfo.do", jsonObject.toString());
         System.out.println("httpRespons4 结果报文为:" + httpRespons4.getContent());
     }
 	@Test
@@ -62,9 +60,7 @@ public class HttpRequesterTest {
         jsonObject.put("telnumber", "13750357236");
 		jsonObject.put("appkey", "gu");
         
-		String decString = new String(EncryptTool.encdec("test".getBytes()));
-		System.out.println("decString:"+decString);
-        HttpRespons httpRespons5 =  HttpRequester.sendBinary("http://localhost:8080/Auth_WeLove" + "/user/exist.do", decString);
+        HttpRespons httpRespons5 =  HttpRequester.sendBinary("https://localhost:8443/Auth_WeLove" + "/user/exist.do", jsonObject.toString());
         System.out.println("httpRespons5 结果报文为:" + httpRespons5.getContent());
     }
 }

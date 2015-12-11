@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -87,6 +88,7 @@ public class HttpRequester {
         httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,5 * 1000);//设置连接超时
     	httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT,20 * 1000);//设置读取超时
     	httpClient.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, false);
+    	httpClient.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, HttpConstants.DEFAULT_CHARSET);
     	
         return httpClient;
     }
@@ -130,6 +132,8 @@ public class HttpRequester {
         httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,5 * 1000);//设置连接超时
     	httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT,20 * 1000);//设置读取超时
     	httpClient.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, false);
+    	httpClient.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, HttpConstants.DEFAULT_CHARSET);
+    	
     	
         return httpClient;
     }
