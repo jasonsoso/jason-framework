@@ -19,12 +19,6 @@
 	</properties>
 
 	<dependencies>
-
-		<dependency>
-		  <groupId>hk.cloudcall.tools</groupId>
-		  <artifactId>CCEncryptTools</artifactId>
-		  <version>1.0</version>
-		</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
