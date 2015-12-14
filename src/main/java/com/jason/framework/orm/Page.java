@@ -61,6 +61,9 @@ public class Page<T> implements Serializable {
 	 */
 	public Page<T> setPageSize(int pageSize) {
 		this.pageSize = pageSize;
+		if (this.pageSize < 1) {
+			this.pageSize = 10;
+		}
 		return this;
 	}
 
