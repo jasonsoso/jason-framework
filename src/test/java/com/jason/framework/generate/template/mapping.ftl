@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${packageName}${moduleName}.domain${subModuleName}.${ClassName}">
 
-<resultMap type="${ClassName}" id="${className}Result">
+<resultMap type="${packageName}${moduleName}.domain${subModuleName}.${ClassName}" id="${className}Result">
 <#list columns as columns>
 <#if columns.name=="id">
 	<id property="${columns.property}" column="${columns.name}"/>
