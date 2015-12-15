@@ -39,16 +39,19 @@ public class ${ClassName}ServiceImpl  implements ${ClassName}Service {
 		return ${className}Repository.queryPage(page);
 	}
 
+	@Transactional
 	@Override
 	public void update(${ClassName} entity) {
 		${className}Repository.update(entity);
 	}
 
+	@Transactional
 	@Override
 	public void delete(${ClassName} entity) {
 		${className}Repository.delete(entity);
 	}
 
+	@Transactional
 	@Override
 	public void save(${ClassName} entity) {
 		${className}Repository.save(entity);
